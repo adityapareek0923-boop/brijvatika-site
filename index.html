@@ -1,0 +1,501 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Brij Vatika — Vedic astrology consultations by Acharya Brijesh Pareek</title>
+<meta name="description" content="Vedic astrology consultations with Acharya Brijesh Pareek. Chart readings, life guidance, and annual forecasts for the global Indian diaspora. Book a session in your currency.">
+<link rel="canonical" href="https://brijvatika.com/">
+<meta property="og:title" content="Brij Vatika — Vedic astrology consultations">
+<meta property="og:description" content="Vedic astrology with Acharya Brijesh Pareek. Chart readings and guidance for the Indian diaspora.">
+<meta property="og:url" content="https://brijvatika.com/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "LocalBusiness",
+      "@id": "https://brijvatika.com/#org",
+      "name": "Brij Vatika",
+      "alternateName": "Acharya Brijesh Pareek",
+      "url": "https://brijvatika.com/",
+      "description": "Vedic astrology consultation practice led by Acharya Brijesh Pareek, serving the global Indian diaspora.",
+      "email": "hello@brijvatika.com",
+      "address": { "@type": "PostalAddress", "addressLocality": "Jaipur, India", "addressCountry": "IN" },
+      "areaServed": ["US", "CA", "IN", "AE"]
+    },
+    {
+      "@type": "Service",
+      "name": "Vedic astrology consultation",
+      "provider": { "@id": "https://brijvatika.com/#org" },
+      "serviceType": "Astrology consultation",
+      "description": "Birth chart analysis, dasha and transit readings, life guidance consultations, and annual forecast sessions. Multi-currency booking for international clients."
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "How do I book a consultation?", "acceptedAnswer": { "@type": "Answer", "text": "Choose a tier, pay via Stripe in your local currency, then fill the short form with your birth details. We confirm your session slot by email within 24 hours." } },
+        { "@type": "Question", "name": "What information do you need for a reading?", "acceptedAnswer": { "@type": "Answer", "text": "Full name, date of birth, exact time of birth, and place of birth (city). Time of birth accuracy to within 10 minutes is strongly recommended." } },
+        { "@type": "Question", "name": "What language are consultations in?", "acceptedAnswer": { "@type": "Answer", "text": "Hindi or English, your choice. The Acharya is fluent in both." } },
+        { "@type": "Question", "name": "What if I need to reschedule?", "acceptedAnswer": { "@type": "Answer", "text": "Reschedule up to 24 hours before your session at no cost. Cancellations within 24 hours are 50% refundable; no-shows are non-refundable." } }
+      ]
+    }
+  ]
+}
+</script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='none' stroke='%238b6b3a' stroke-width='1.5'/%3E%3Cpath d='M16 2 L16 30 M2 16 L30 16 M6 6 L26 26 M26 6 L6 26' stroke='%238b6b3a' stroke-width='0.8' opacity='0.4'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%238b6b3a'/%3E%3C/svg%3E">
+<style>
+  :root {
+    --bg: #fbf9f4;
+    --surface: #ffffff;
+    --surface-2: #f3efe4;
+    --ink: #1d1d1f;
+    --ink-2: #515154;
+    --ink-3: #86868b;
+    --line: #e2dcc8;
+    --line-2: #ece7d6;
+    --accent: #8b6b3a;
+    --accent-hover: #74582c;
+    --accent-ink: #ffffff;
+    --ok: #30861a;
+    --warn: #8a4a0b;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: "Inter", "-apple-system", BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+    background: var(--bg); color: var(--ink);
+    -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    line-height: 1.47059; letter-spacing: -0.003em;
+  }
+  h1, h2, h3, h4 { font-family: "Cormorant Garamond", "Times New Roman", serif; font-weight: 500; letter-spacing: -0.01em; }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 0 22px; }
+  .wrap-wide { max-width: 1200px; margin: 0 auto; padding: 0 22px; }
+
+  /* Nav */
+  nav { position: sticky; top: 0; z-index: 10; backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); background: color-mix(in srgb, var(--bg) 72%, transparent); border-bottom: 1px solid var(--line); }
+  nav .wrap-wide { display: flex; align-items: center; justify-content: space-between; height: 54px; font-size: 13px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 500; font-size: 17px; letter-spacing: 0; font-family: "Cormorant Garamond", serif; }
+  .brand-mark { width: 28px; height: 28px; display: inline-flex; }
+  .brand-mark svg { width: 28px; height: 28px; display: block; }
+  .brand-sub { font-size: 11px; color: var(--ink-3); font-family: "Inter", sans-serif; letter-spacing: 0.4px; text-transform: uppercase; margin-left: 4px; font-weight: 500; }
+  .nav-links { display: inline-flex; align-items: center; gap: 24px; }
+  .nav-links a { color: var(--ink); text-decoration: none; font-size: 13px; opacity: 0.9; }
+  .nav-links a:hover { opacity: 1; color: var(--accent); }
+  .nav-cta { background: var(--accent); color: #fff !important; padding: 7px 14px; border-radius: 20px; opacity: 1 !important; font-weight: 500; }
+  .nav-cta:hover { background: var(--accent-hover); color: #fff !important; }
+  @media (max-width: 640px) { .nav-links a:not(.nav-cta) { display: none; } }
+
+  /* Hero */
+  .hero { padding: 100px 0 70px; text-align: center; }
+  .hero .eyebrow { display: inline-block; font-size: 12px; font-weight: 500; color: var(--accent); letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 18px; font-family: "Inter", sans-serif; }
+  .hero h1 { font-size: clamp(44px, 7vw, 76px); margin: 0 0 20px; line-height: 1.05; letter-spacing: -0.015em; }
+  .hero h1 em { font-style: italic; color: var(--accent); }
+  .hero .lead { font-size: clamp(17px, 1.8vw, 21px); color: var(--ink-2); max-width: 640px; margin: 0 auto 32px; line-height: 1.5; letter-spacing: -0.009em; }
+  .hero-cta { display: inline-flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn-primary, .btn-ghost { padding: 12px 22px; border-radius: 24px; font-size: 15px; font-weight: 500; text-decoration: none; display: inline-block; font-family: inherit; cursor: pointer; border: none; }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: var(--accent-hover); }
+  .btn-ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+  .btn-ghost:hover { background: var(--surface); }
+
+  /* Mandala divider */
+  .mandala { display: block; margin: 50px auto 0; opacity: 0.3; }
+
+  /* Stats band */
+  .stats-band { padding: 40px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--surface); }
+  .stats-band .wrap-wide { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 28px; text-align: center; }
+  .stat-num { font-family: "Cormorant Garamond", serif; font-size: clamp(36px, 5vw, 56px); font-weight: 500; color: var(--accent); margin: 0 0 4px; line-height: 1; letter-spacing: -0.02em; }
+  .stat-num small { font-size: 0.5em; color: var(--ink-3); font-weight: 400; margin-left: 2px; }
+  .stat-label { font-size: 12px; color: var(--ink-3); margin: 0; letter-spacing: 0.4px; text-transform: uppercase; font-weight: 500; }
+
+  /* Section rhythm */
+  .section { padding: 90px 0; }
+  .section + .section { border-top: 1px solid var(--line); }
+  .section .eyebrow { display: block; font-size: 12px; font-weight: 500; color: var(--accent); text-align: center; margin: 0 0 12px; letter-spacing: 0.8px; text-transform: uppercase; font-family: "Inter", sans-serif; }
+  .section h2 { font-size: clamp(36px, 5vw, 58px); margin: 0 0 18px; text-align: center; line-height: 1.08; }
+  .section h2 em { font-style: italic; color: var(--accent); }
+  .section .lead { color: var(--ink-2); text-align: center; max-width: 640px; margin: 0 auto 56px; font-size: clamp(17px, 1.5vw, 19px); line-height: 1.5; letter-spacing: -0.009em; }
+
+  /* Services (3 tiers) */
+  .tiers { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+  .tier { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 34px 28px; display: flex; flex-direction: column; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+  .tier:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(139, 107, 58, 0.08); }
+  .tier.featured { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 4%, var(--surface)); position: relative; }
+  .tier .tier-badge { position: absolute; top: 14px; right: 20px; background: var(--accent); color: #fff; font-size: 10px; padding: 3px 9px; border-radius: 10px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 500; }
+  .tier h3 { font-size: 28px; margin: 0 0 6px; letter-spacing: -0.01em; }
+  .tier .duration { font-size: 12px; color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 20px; font-weight: 500; }
+  .tier .price-row { margin: 0 0 20px; }
+  .tier .price { font-family: "Cormorant Garamond", serif; font-size: 44px; font-weight: 500; color: var(--ink); line-height: 1; letter-spacing: -0.02em; }
+  .tier .price-sub { font-size: 12px; color: var(--ink-3); margin-top: 4px; }
+  .tier .tier-desc { font-size: 14px; color: var(--ink-2); line-height: 1.55; margin: 0 0 24px; }
+  .tier ul { list-style: none; padding: 0; margin: 0 0 28px; font-size: 14px; color: var(--ink-2); flex: 1; }
+  .tier li { padding: 6px 0 6px 24px; position: relative; line-height: 1.5; }
+  .tier li::before { content: ''; position: absolute; left: 0; top: 11px; width: 14px; height: 1px; background: var(--accent); }
+  .tier .btn-primary { width: 100%; text-align: center; }
+
+  /* Currency switcher */
+  .currency-switcher { text-align: center; margin-bottom: 32px; display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; }
+  .cur-chip { background: var(--surface); border: 1px solid var(--line); color: var(--ink-2); padding: 6px 14px; border-radius: 18px; font-size: 12px; cursor: pointer; font-family: inherit; font-weight: 500; transition: all 0.15s ease; }
+  .cur-chip:hover { border-color: var(--accent); color: var(--accent); }
+  .cur-chip.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+  /* How it works */
+  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 28px; }
+  .step { position: relative; padding-top: 48px; }
+  .step .step-num { position: absolute; top: 0; left: 0; font-family: "Cormorant Garamond", serif; font-size: 36px; color: var(--accent); line-height: 1; opacity: 0.5; font-style: italic; }
+  .step h4 { font-size: 20px; margin: 0 0 8px; letter-spacing: -0.01em; }
+  .step p { font-size: 14px; color: var(--ink-2); line-height: 1.6; margin: 0; }
+
+  /* About the Acharya */
+  .about-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 60px; align-items: start; max-width: 920px; margin: 0 auto; }
+  @media (max-width: 760px) { .about-grid { grid-template-columns: 1fr; gap: 32px; } }
+  .about-photo { background: var(--surface-2); border-radius: 18px; aspect-ratio: 3/4; display: flex; align-items: center; justify-content: center; border: 1px solid var(--line); color: var(--ink-3); font-size: 13px; font-style: italic; }
+  .about-body h3 { font-size: 32px; margin: 0 0 6px; letter-spacing: -0.01em; }
+  .about-body .about-sub { font-size: 12px; color: var(--accent); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 20px; font-weight: 500; font-family: "Inter", sans-serif; }
+  .about-body p { font-size: 15px; color: var(--ink-2); line-height: 1.7; margin: 0 0 16px; }
+  .about-body .creds { margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--line); display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 20px; }
+  .about-body .cred-item .label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--ink-3); font-weight: 500; margin-bottom: 2px; }
+  .about-body .cred-item .value { font-size: 14px; color: var(--ink); font-weight: 500; }
+
+  /* Booking form */
+  .book-form { max-width: 620px; margin: 0 auto; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 36px; }
+  .form-row { margin-bottom: 18px; }
+  .form-row.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 540px) { .form-row.two-col { grid-template-columns: 1fr; } }
+  .book-form label { display: block; font-size: 12px; color: var(--ink-2); margin-bottom: 6px; font-weight: 500; }
+  .book-form input, .book-form select, .book-form textarea { width: 100%; background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 11px 14px; font-size: 15px; font-family: inherit; color: var(--ink); line-height: 1.4; }
+  .book-form textarea { min-height: 90px; resize: vertical; }
+  .book-form input:focus, .book-form select:focus, .book-form textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 15%, transparent); }
+  .book-form .submit-row { margin-top: 24px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .book-form .btn-primary { padding: 13px 32px; }
+  .book-form .form-note { font-size: 12px; color: var(--ink-3); flex: 1; min-width: 220px; }
+  .honey { position: absolute; left: -9999px; opacity: 0; pointer-events: none; }
+  .ok-msg, .err-msg { display: none; padding: 14px 18px; border-radius: 10px; font-size: 14px; margin-bottom: 20px; }
+  .ok-msg.show, .err-msg.show { display: block; }
+  .ok-msg { background: color-mix(in srgb, var(--ok) 10%, transparent); color: var(--ok); border: 1px solid color-mix(in srgb, var(--ok) 30%, transparent); }
+  .err-msg { background: color-mix(in srgb, var(--warn) 10%, transparent); color: var(--warn); border: 1px solid color-mix(in srgb, var(--warn) 30%, transparent); }
+
+  /* FAQ */
+  .faq { max-width: 760px; margin: 0 auto; }
+  .faq details { border-bottom: 1px solid var(--line); padding: 20px 0; }
+  .faq details[open] summary { color: var(--accent); }
+  .faq summary { font-size: 17px; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; font-weight: 500; letter-spacing: -0.004em; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: '+'; color: var(--accent); font-weight: 300; font-size: 24px; line-height: 1; margin-left: 12px; }
+  .faq details[open] summary::after { content: '−'; }
+  .faq .answer { padding: 14px 0 4px; font-size: 15px; color: var(--ink-2); line-height: 1.65; }
+
+  /* Mid CTA */
+  .mid-cta { background: var(--ink); color: #fff; padding: 80px 0; text-align: center; }
+  .mid-cta h3 { font-size: clamp(32px, 4vw, 44px); margin: 0 0 14px; color: #fff; }
+  .mid-cta p { font-size: 17px; color: rgba(255,255,255,0.75); max-width: 480px; margin: 0 auto 28px; }
+  .mid-cta .btn-primary { background: #fff; color: var(--ink); }
+  .mid-cta .btn-primary:hover { background: rgba(255,255,255,0.9); }
+
+  /* Footer */
+  footer { background: var(--surface); border-top: 1px solid var(--line); padding: 48px 0 32px; font-size: 13px; color: var(--ink-3); }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 32px; }
+  @media (max-width: 760px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 460px) { .footer-grid { grid-template-columns: 1fr; } }
+  .footer-grid h5 { margin: 0 0 10px; font-size: 12px; color: var(--ink); font-weight: 500; letter-spacing: 0.3px; text-transform: uppercase; font-family: "Inter", sans-serif; }
+  .footer-grid a { color: var(--ink-3); text-decoration: none; display: block; margin-bottom: 6px; font-size: 13px; }
+  .footer-grid a:hover { color: var(--accent); }
+  .footer-brand { font-family: "Cormorant Garamond", serif; font-size: 20px; color: var(--ink); margin-bottom: 8px; }
+  .footer-brand-sub { color: var(--ink-3); line-height: 1.6; font-size: 13px; }
+  .footer-bottom { border-top: 1px solid var(--line); padding-top: 20px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; font-size: 12px; }
+</style>
+</head>
+<body>
+
+<nav><div class="wrap-wide">
+  <a class="brand" href="/" style="text-decoration:none;color:inherit">
+    <span class="brand-mark">
+      <svg viewBox="0 0 32 32" fill="none" stroke="#8b6b3a" stroke-width="1.5"><circle cx="16" cy="16" r="14"/><path d="M16 2 L16 30 M2 16 L30 16 M6 6 L26 26 M26 6 L6 26" stroke-width="0.8" opacity="0.4"/><circle cx="16" cy="16" r="3" fill="#8b6b3a" stroke="none"/></svg>
+    </span>
+    Brij Vatika<span class="brand-sub">Vedic astrology</span>
+  </a>
+  <div class="nav-links">
+    <a href="#services">Services</a>
+    <a href="#how">How it works</a>
+    <a href="#about">The Acharya</a>
+    <a href="#faq">FAQ</a>
+    <a href="#book" class="nav-cta">Book now</a>
+  </div>
+</div></nav>
+
+<section class="hero"><div class="wrap">
+  <span class="eyebrow">Vedic astrology · US, Canada, India, UAE</span>
+  <h1>Ancient wisdom,<br>for the questions <em>you carry today</em>.</h1>
+  <p class="lead">Vedic astrology consultations with Acharya Brijesh Pareek — chart readings, dasha analysis, and life guidance for the global Indian diaspora. In your language, in your currency, on your schedule.</p>
+  <div class="hero-cta">
+    <a href="#services" class="btn-primary">See consultation options</a>
+    <a href="#about" class="btn-ghost">Meet the Acharya</a>
+  </div>
+  <svg class="mandala" width="80" height="80" viewBox="0 0 80 80" fill="none" stroke="#8b6b3a" stroke-width="0.8">
+    <circle cx="40" cy="40" r="38"/><circle cx="40" cy="40" r="28"/><circle cx="40" cy="40" r="18"/><circle cx="40" cy="40" r="8"/>
+    <path d="M40 2 L40 78 M2 40 L78 40 M14 14 L66 66 M66 14 L14 66"/>
+  </svg>
+</div></section>
+
+<section class="stats-band"><div class="wrap-wide">
+  <div><p class="stat-num">40+ years</p><p class="stat-label">Years in practice</p></div>
+  <div><p class="stat-num">10,000+</p><p class="stat-label">Consultations completed</p></div>
+  <div><p class="stat-num">4</p><p class="stat-label">Countries served</p></div>
+  <div><p class="stat-num">24<small>h</small></p><p class="stat-label">Confirmation turnaround</p></div>
+</div></section>
+
+<section class="section" id="services"><div class="wrap">
+  <span class="eyebrow">Consultations</span>
+  <h2>Choose the depth<br>of your <em>reading</em>.</h2>
+  <p class="lead">Three ways to begin, priced in your currency. All sessions by video call. Birth details collected after payment through a short confidential form.</p>
+
+  <div class="currency-switcher" id="currency-switcher">
+    <button class="cur-chip" data-cur="USD">$ USD</button>    <button class="cur-chip" data-cur="CAD">C$ CAD</button>    <button class="cur-chip" data-cur="INR">₹ INR</button>
+  </div>
+
+  <div class="tiers">
+    <div class="tier">
+      <h3>Brief Consult</h3>
+      <p class="duration">30 min</p>
+      <div class="price-row">
+        <span class="price" data-price data-usd="49" data-cad="69" data-inr="1,999">49</span>
+        <div class="price-sub">One-time payment</div>
+      </div>
+      <p class="tier-desc">One focused question answered through your chart, with a clear next step before you hang up.</p>
+      <ul>
+        <li>Focused on one specific question</li>
+        <li>Chart snapshot by email after</li>
+        <li>Hindi or English</li>
+      </ul>
+      <a class="btn-primary" data-tier="1" data-stripe-usd="#book" data-stripe-cad="#book" data-stripe-inr="#book" href="#book">Enquire about this session</a>
+    </div>
+
+    <div class="tier featured">
+      <span class="tier-badge">Most chosen</span>
+      <h3>Full Chart Reading</h3>
+      <p class="duration">60 min</p>
+      <div class="price-row">
+        <span class="price" data-price data-usd="129" data-cad="179" data-inr="5,999">129</span>
+        <div class="price-sub">One-time payment</div>
+      </div>
+      <p class="tier-desc">Complete birth chart analysis — dashas, transits, remedies — across the areas of life that matter most to you.</p>
+      <ul>
+        <li>Full birth chart (D1 + divisional)</li>
+        <li>Current dasha + 2-year transit outlook</li>
+        <li>Written summary emailed after</li>
+        <li>Hindi or English</li>
+      </ul>
+      <a class="btn-primary" data-tier="2" data-stripe-usd="#book" data-stripe-cad="#book" data-stripe-inr="#book" href="#book">Enquire about this session</a>
+    </div>
+
+    <div class="tier">
+      <h3>Annual Guidance</h3>
+      <p class="duration">90 min + 3 follow-ups</p>
+      <div class="price-row">
+        <span class="price" data-price data-usd="349" data-cad="479" data-inr="14,999">349</span>
+        <div class="price-sub">Annual program</div>
+      </div>
+      <p class="tier-desc">A full chart reading plus three 30-minute follow-ups through the year, timed to your dasha and transits.</p>
+      <ul>
+        <li>Everything in Full Chart</li>
+        <li>Three 30-min follow-ups through the year</li>
+        <li>Email access for quick questions</li>
+        <li>Priority scheduling</li>
+      </ul>
+      <a class="btn-primary" data-tier="3" data-stripe-usd="#book" data-stripe-cad="#book" data-stripe-inr="#book" href="#book">Enquire about this session</a>
+    </div>
+  </div>
+</div></section>
+
+<section class="section" id="how"><div class="wrap">
+  <span class="eyebrow">How it works</span>
+  <h2>Four steps<br>from <em>question to clarity</em>.</h2>
+  <div class="steps">
+    <div class="step"><span class="step-num">i</span><h4>Choose a tier</h4><p>Pick the depth of reading you need. Pay in your local currency through Stripe.</p></div>
+    <div class="step"><span class="step-num">ii</span><h4>Share birth details</h4><p>Short confidential form after payment: full name, date, exact time, and place of birth.</p></div>
+    <div class="step"><span class="step-num">iii</span><h4>Confirm your slot</h4><p>Within 24 hours we confirm your video call slot in your timezone.</p></div>
+    <div class="step"><span class="step-num">iv</span><h4>Meet the Acharya</h4><p>Video consultation in Hindi or English. Written summary follows by email.</p></div>
+  </div>
+</div></section>
+
+<section class="section" id="about"><div class="wrap">
+  <span class="eyebrow">About</span>
+  <h2>Acharya <em>Brijesh Pareek</em></h2>
+  <div class="about-grid">
+    <div class="about-photo">[Acharya portrait]</div>
+    <div class="about-body">
+      <h3>A life rooted in Jyotish.</h3>
+      <p class="about-sub">Jaipur · Serving clients worldwide</p>
+      <p>For four decades, Acharya Brijesh Pareek has read the stars with the same discipline he brought to building cities. A Jyotishi in the classical tradition and a long-serving officer with the Government of Rajasthan, his contributions to the state's urban development, water conservation, and heritage programmes are recorded across a shelf of published volumes — from the Jaipur Municipal Corporation to the Rajasthan Urban Infrastructure Development Project. Few astrologers come to the chart with that kind of record behind them.</p>
+      <p>Based in Jaipur — the city Sawai Jai Singh laid out by Vedic principle three centuries ago — the Acharya reads a horoscope the way the śāstras intend: not as a verdict, but as a map of tendencies, timing, and remedies. He counsels seekers from India and abroad on marriage and family, career direction, the timing of major decisions, and year-ahead guidance. Each reading is grounded in the Parāśari system, cross-checked against transit and daśā, and delivered with the patience of a scholar and the clarity of a man who has spent a lifetime translating complexity into counsel.</p>
+      <div class="creds">
+        <div class="cred-item"><div class="label">Experience</div><div class="value">40+ years</div></div>
+        <div class="cred-item"><div class="label">Languages</div><div class="value">Hindi · English</div></div>
+        <div class="cred-item"><div class="label">Based</div><div class="value">Jaipur, India</div></div>
+        <div class="cred-item"><div class="label">Serves</div><div class="value">US, Canada, India, UAE</div></div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<section class="mid-cta"><div class="wrap">
+  <h3>Ready when you are.</h3>
+  <p>Book a session in your currency. Pay first, share birth details on the next screen, confirm slot within 24 hours.</p>
+  <a href="#services" class="btn-primary">Book a consultation</a>
+</div></section>
+
+<section class="section" id="faq"><div class="wrap">
+  <span class="eyebrow">FAQ</span>
+  <h2>Questions<br><em>asked first</em>.</h2>
+  <div class="faq">
+    <details><summary>How do I book a consultation?</summary><div class="answer">Choose a tier, pay via Stripe in your local currency, then fill the short birth-details form on the confirmation page. We confirm your session slot by email within 24 hours.</div></details>
+    <details><summary>What information do you need for a reading?</summary><div class="answer">Full name, date of birth, exact time of birth, and place of birth (city, state/country). Time of birth accuracy to within 10 minutes is strongly recommended. If you don't know the time, we can discuss alternate approaches.</div></details>
+    <details><summary>What language are consultations in?</summary><div class="answer">Hindi or English — your choice. The Acharya is fluent in both and will adapt to whichever is comfortable for you.</div></details>
+    <details><summary>What if I need to reschedule?</summary><div class="answer">Reschedule up to 24 hours before your session at no cost through the email we send you. Cancellations within 24 hours are 50% refundable. No-shows are non-refundable.</div></details>
+    <details><summary>Do you offer remedies and rituals?</summary><div class="answer">Yes, where appropriate. The Acharya may suggest mantras, charitable acts, or specific rituals based on your chart. Any suggested puja or ceremony is optional and separately priced.</div></details>
+    <details><summary>Is this religious guidance or counseling?</summary><div class="answer">Vedic astrology (Jyotish) is a traditional system of pattern-reading and timing. Consultations are offered for personal insight and reflection. They are not a substitute for medical, financial, or legal advice — those are decisions for qualified professionals.</div></details>
+    <details><summary>How do I pay?</summary><div class="answer">Secure one-time Stripe payment in your local currency (USD, CAD, INR). We never store card details. Payment confirmation and birth-details form arrive by email within minutes.</div></details>
+  </div>
+</div></section>
+
+<section class="section" id="book"><div class="wrap">
+  <span class="eyebrow">Quick enquiry</span>
+  <h2>Not sure which to pick?<br><em>Ask the Acharya.</em></h2>
+  <p class="lead">Short enquiry — share what you'd like guidance on and he'll suggest the right session. No payment yet.</p>
+  <div class="ok-msg" id="ok-msg">Received. We'll reply within 24 hours.</div>
+  <div class="err-msg" id="err-msg"></div>
+  <form class="book-form" id="enquiry-form">
+    <div class="form-row two-col">
+      <div><label for="e-name">Your name *</label><input type="text" id="e-name" name="name" required autocomplete="name"></div>
+      <div><label for="e-email">Email *</label><input type="email" id="e-email" name="email" required autocomplete="email"></div>
+    </div>
+    <div class="form-row two-col">
+      <div><label for="e-country">Country</label><input type="text" id="e-country" name="country" autocomplete="country-name"></div>
+      <div><label for="e-tz">Timezone (optional)</label><input type="text" id="e-tz" name="timezone" placeholder="e.g. US/Pacific" autocomplete="off"></div>
+    </div>
+    <div class="form-row">
+      <label for="e-topic">What would you like guidance on? *</label>
+      <textarea id="e-topic" name="topic" required placeholder="A few lines — career, marriage, timing, something specific happening in your life. All details are confidential."></textarea>
+    </div>
+    <input type="text" class="honey" name="website" tabindex="-1" autocomplete="off">
+    <div class="submit-row">
+      <button type="submit" class="btn-primary" id="enquiry-submit">Send enquiry</button>
+      <span class="form-note">Replies within 24 hours. Confidential. No payment yet.</span>
+    </div>
+    <div class="cf-turnstile" data-sitekey="0x4AAAAAAFU_SkmYSjWnPP_Y" style="margin-top:16px"></div>
+  </form>
+</div></section>
+
+<footer><div class="wrap-wide">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">Brij Vatika</div>
+      <div class="footer-brand-sub">Vedic astrology consultations with Acharya Brijesh Pareek.<br>Serving the global Indian diaspora from Jaipur, India.</div>
+    </div>
+    <div>
+      <h5>Site</h5>
+      <a href="#services">Services</a>
+      <a href="#how">How it works</a>
+      <a href="#about">The Acharya</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <div>
+      <h5>Contact</h5>
+      <a href="mailto:hello@brijvatika.com">hello@brijvatika.com</a>
+      <a href="#book">Send enquiry</a>
+    </div>
+    <div>
+      <h5>Legal</h5>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/terms.html">Terms</a>
+      <a href="/refund.html">Refund policy</a>
+      <a href="/disclaimer.html">Disclaimer</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Brij Vatika. All rights reserved.</span>
+    <span>Vedic astrology is offered for personal insight; it is not medical, financial, or legal advice.</span>
+  </div>
+</div></footer>
+
+<script>
+  const SUPABASE_URL = "https://tjknrhrgvwnxhkwizujn.supabase.co";
+  const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRqa25yaHJndndueGhrd2l6dWpuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE3MjQ0MDksImV4cCI6MjEwNzMwMDQwOX0.1KodRnJHY66xMNrWmkq5JDySuNvyBSDAEVj0pPwCIJs";
+
+  // Currency switcher — detects locale, overrideable
+  const currencyLocale = { USD: ['US'], CAD: ['CA'], INR: ['IN'] };
+  const localeMap = { 'en-US': 'USD', 'en-CA': 'CAD', 'en-IN': 'INR', 'hi-IN': 'INR' };
+  const symbols = { USD: '$', CAD: 'C$', INR: '₹' };
+  function detectCurrency() {
+    try {
+      const stored = localStorage.getItem('bv_cur_v1');
+      if (stored && symbols[stored]) return stored;
+    } catch {}
+    const l = navigator.language || 'en-US';
+    return localeMap[l] || 'USD';
+  }
+  function setCurrency(cur) {
+    document.querySelectorAll('[data-price]').forEach(el => {
+      const v = el.dataset[cur.toLowerCase()];
+      el.textContent = v ? symbols[cur] + v : '—';
+    });
+    document.querySelectorAll('.cur-chip').forEach(c => c.classList.toggle('active', c.dataset.cur === cur));
+    document.querySelectorAll('[data-tier]').forEach(btn => {
+      const link = btn.dataset['stripe' + cur.charAt(0).toUpperCase() + cur.slice(1).toLowerCase()];
+      if (link && !link.startsWith('[[')) btn.href = link;
+    });
+    try { localStorage.setItem('bv_cur_v1', cur); } catch {}
+  }
+  setCurrency(detectCurrency());
+  document.querySelectorAll('.cur-chip').forEach(c => c.addEventListener('click', () => setCurrency(c.dataset.cur)));
+
+  // Enquiry form submit
+  const form = document.getElementById('enquiry-form');
+  const okMsg = document.getElementById('ok-msg');
+  const errMsg = document.getElementById('err-msg');
+  const submitBtn = document.getElementById('enquiry-submit');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    okMsg.classList.remove('show'); errMsg.classList.remove('show');
+
+    // Honeypot — if filled, silently accept
+    if (form.website.value) { okMsg.classList.add('show'); form.reset(); return; }
+
+    const token = window.turnstile ? (document.querySelector('[name="cf-turnstile-response"]')?.value || '') : '';
+    const payload = {
+      name: form.name.value.trim(),
+      email: form.email.value.trim(),
+      country: form.country.value.trim() || null,
+      timezone: form.timezone.value.trim() || Intl.DateTimeFormat().resolvedOptions().timeZone || null,
+      topic: form.topic.value.trim(),
+      turnstile_token: token,
+    };
+    submitBtn.disabled = true; submitBtn.textContent = 'Sending…';
+    try {
+      const r = await fetch(SUPABASE_URL + '/functions/v1/booking-submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + SUPABASE_ANON, 'apikey': SUPABASE_ANON },
+        body: JSON.stringify(payload),
+      });
+      const data = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(data.error || 'Request failed');
+      okMsg.classList.add('show');
+      form.reset();
+      if (window.turnstile) window.turnstile.reset();
+    } catch (e) {
+      errMsg.textContent = e.message || 'Something went wrong. Please try again or email us directly.';
+      errMsg.classList.add('show');
+    } finally {
+      submitBtn.disabled = false; submitBtn.textContent = 'Send enquiry';
+    }
+  });
+</script>
+</body>
+</html>
