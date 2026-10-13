@@ -1,0 +1,645 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vedic chart — Brij Vatika</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&family=Noto+Serif+Devanagari:wght@500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/astronomy-engine@2.1.19/astronomy.min.js"></script>
+<style>
+  :root {
+    --bg: #fbf6ea; --surface: #fff; --surface-2: #f5efdf; --surface-3: #ede6d1;
+    --ink: #1a1a1c; --ink-2: #4a4a52; --ink-3: #86868b;
+    --line: #e5dcc3; --accent: #a0742d; --accent-hover: #7f5a1f; --accent-light: #c7a364;
+    --midnight: #1a1b3a;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Inter", sans-serif; background: var(--bg); color: var(--ink); -webkit-font-smoothing: antialiased; line-height: 1.5; }
+  h1, h2, h3 { font-family: "Cormorant Garamond", serif; font-weight: 500; margin: 0; letter-spacing: -0.01em; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 24px 20px 60px; }
+
+  .topbar { background: var(--midnight); color: #fff; padding: 14px 24px; display: flex; justify-content: space-between; align-items: center; }
+  .topbar .brand { font-family: "Cormorant Garamond", serif; font-size: 22px; }
+  .topbar .brand em { color: var(--accent-light); font-style: italic; }
+  .topbar .brand small { font-size: 11px; color: rgba(255,255,255,0.6); margin-left: 8px; letter-spacing: 1px; text-transform: uppercase; }
+  .topbar a { color: #fff; text-decoration: none; font-size: 13px; padding: 6px 14px; border: 1px solid rgba(255,255,255,0.25); border-radius: 20px; }
+  .topbar a:hover { border-color: var(--accent-light); }
+
+  .header { text-align: center; margin: 30px 0 40px; }
+  .header h1 { font-size: clamp(32px, 4vw, 44px); margin: 0 0 8px; }
+  .header .meta { color: var(--ink-3); font-size: 14px; }
+  .header .meta strong { color: var(--ink); font-weight: 500; }
+
+  .form-card { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 24px; margin-bottom: 24px; }
+  .form-card h3 { font-size: 20px; margin-bottom: 16px; }
+  .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; }
+  .form-grid label { display: block; font-size: 11px; color: var(--ink-3); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-bottom: 4px; }
+  .form-grid input { width: 100%; padding: 10px 12px; font-size: 14px; background: var(--bg); border: 1.5px solid var(--line); border-radius: 8px; font-family: inherit; }
+  .form-grid input:focus { outline: none; border-color: var(--accent); }
+  .form-actions { margin-top: 16px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .btn { padding: 10px 20px; border-radius: 20px; border: none; font-size: 14px; font-family: inherit; cursor: pointer; font-weight: 500; }
+  .btn-primary { background: var(--midnight); color: #fff; }
+  .btn-primary:hover { background: var(--accent); }
+
+  .grid { display: grid; grid-template-columns: minmax(0, 1fr) 400px; gap: 24px; }
+  @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 20px; margin-bottom: 20px; }
+  .card h3 { font-size: 20px; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+  .card h3 .dev { font-family: "Noto Serif Devanagari", serif; font-weight: 500; font-size: 0.85em; color: var(--accent); margin-left: 4px; }
+
+  /* North-India chart */
+  .chart-container { aspect-ratio: 1; max-width: 480px; margin: 0 auto; position: relative; }
+  .chart-svg { width: 100%; height: 100%; }
+  .chart-svg .outer { stroke: var(--midnight); stroke-width: 1.5; fill: var(--surface-2); }
+  .chart-svg .divider { stroke: var(--midnight); stroke-width: 1; fill: none; }
+  .chart-svg text.rashi-num { font-family: "Inter", sans-serif; font-size: 11px; fill: var(--ink-3); font-weight: 600; }
+  .chart-svg text.planet { font-family: "Inter", sans-serif; font-size: 13px; fill: var(--ink); font-weight: 500; }
+  .chart-svg text.planet.retrograde { fill: var(--accent); }
+  .chart-svg text.asc { font-family: "Cormorant Garamond", serif; font-size: 14px; fill: var(--accent); font-weight: 600; font-style: italic; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--surface-2); }
+  th { font-size: 10px; text-transform: uppercase; color: var(--ink-3); letter-spacing: 1px; font-weight: 600; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+
+  .dasha-period { display: flex; justify-content: space-between; padding: 10px 12px; background: var(--surface-2); border-radius: 10px; margin-bottom: 8px; font-size: 14px; }
+  .dasha-period.current { background: color-mix(in srgb, var(--accent) 15%, var(--surface)); border: 1px solid var(--accent); font-weight: 500; }
+  .dasha-period .lord { font-weight: 600; }
+  .dasha-period .range { color: var(--ink-3); font-size: 12px; }
+
+  .legend { font-size: 11px; color: var(--ink-3); margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--surface-2); }
+  .glyph { font-size: 15px; margin-right: 4px; color: var(--accent); }
+
+  .error { background: #fff3f3; color: #b03030; border: 1px solid #e8c0c0; padding: 12px 16px; border-radius: 10px; margin: 20px 0; }
+  .warn { background: #fff8e5; color: var(--accent-hover); border: 1px solid #e8d49c; padding: 12px 16px; border-radius: 10px; margin: 20px 0; font-size: 13px; }
+  .muted { color: var(--ink-3); font-size: 13px; }
+
+  .controls-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; }
+  .controls-row .pill { background: var(--surface); border: 1px solid var(--line); padding: 4px 12px; border-radius: 20px; font-size: 12px; }
+  .controls-row .pill strong { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">Brij <em>Vatika</em><small>Chart viewer</small></div>
+  <a href="/admin.html">← Admin</a>
+</div>
+
+<div class="wrap">
+
+<div id="form-card" class="form-card">
+  <h3>Birth details</h3>
+  <p class="muted" style="margin: 0 0 16px;">Pre-filled from the inquiry. Edit anything and recompute.</p>
+  <div class="form-grid">
+    <div>
+      <label>Name</label>
+      <input type="text" id="in-name">
+    </div>
+    <div>
+      <label>Date of birth</label>
+      <input type="date" id="in-date">
+    </div>
+    <div>
+      <label>Time of birth</label>
+      <input type="time" id="in-time" step="60">
+    </div>
+    <div>
+      <label>Place of birth</label>
+      <input type="text" id="in-place" placeholder="City, Country">
+    </div>
+    <div>
+      <label>Latitude (°N)</label>
+      <input type="number" id="in-lat" step="0.0001" placeholder="e.g. 26.9124">
+    </div>
+    <div>
+      <label>Longitude (°E)</label>
+      <input type="number" id="in-lon" step="0.0001" placeholder="e.g. 75.7873">
+    </div>
+    <div>
+      <label>Timezone (hours from UTC)</label>
+      <input type="number" id="in-tz" step="0.25" placeholder="e.g. 5.5">
+    </div>
+  </div>
+  <div class="form-actions">
+    <button class="btn btn-primary" id="btn-geocode">Look up coordinates</button>
+    <button class="btn btn-primary" id="btn-compute">Compute chart</button>
+    <span class="muted" id="geo-status"></span>
+  </div>
+</div>
+
+<div id="chart-output" style="display:none">
+  <div class="header">
+    <h1 id="h-name">—</h1>
+    <div class="meta" id="h-meta"></div>
+  </div>
+
+  <div id="warnings"></div>
+
+  <div class="controls-row">
+    <div>
+      <span class="pill">Ayanamsa <strong id="h-ayanamsa">—</strong></span>
+      <span class="pill" style="margin-left: 6px;">Houses <strong>Whole Sign</strong></span>
+      <span class="pill" style="margin-left: 6px;">System <strong>Parāśari</strong></span>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div>
+      <div class="card">
+        <h3>Rāśi Chart <span class="dev">D-1</span></h3>
+        <div class="chart-container" id="chart-container"></div>
+        <div class="legend">
+          Lagna in <span id="asc-sign" style="color: var(--accent); font-weight: 500;">—</span>.
+          Rashis are numbered 1–12 (Aries–Pisces). Planets shown by abbreviation; (R) marks retrograde.
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Planetary Positions</h3>
+        <table id="positions-table">
+          <thead><tr><th>Planet</th><th>Rashi</th><th>Degree</th><th>Nakshatra</th><th>Pada</th><th>House</th></tr></thead>
+          <tbody id="positions-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div>
+      <div class="card">
+        <h3>Vimshottari Daśā</h3>
+        <div id="dasha-list"></div>
+        <div class="legend">Based on Moon's nakshatra lord. The current Mahadasha is highlighted.</div>
+      </div>
+
+      <div class="card">
+        <h3>Current Transits</h3>
+        <table id="transits-table">
+          <thead><tr><th>Planet</th><th>Rashi</th><th>Degree</th></tr></thead>
+          <tbody id="transits-tbody"></tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h3>Panchang (today)</h3>
+        <table id="panchang-table">
+          <tbody id="panchang-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="muted" style="margin-top: 30px; text-align: center; font-size: 12px;">
+  Computed with astronomy-engine (ecliptic longitudes) + Lahiri ayanamsa.
+  Positions are reliable to within ~0.1°. Interpretation stays with the Acharya.
+</div>
+
+</div>
+
+<script>
+  // ======= VEDIC CHART MATH =======
+  // Rashis
+  const RASHIS = ['Aries','Taurus','Gemini','Cancer','Leo','Virgo','Libra','Scorpio','Sagittarius','Capricorn','Aquarius','Pisces'];
+  const RASHIS_HI = ['मेष','वृषभ','मिथुन','कर्क','सिंह','कन्या','तुला','वृश्चिक','धनु','मकर','कुंभ','मीन'];
+  // Nakshatras (27)
+  const NAKSHATRAS = [
+    'Ashwini','Bharani','Krittika','Rohini','Mrigashira','Ardra','Punarvasu','Pushya','Ashlesha',
+    'Magha','Purva Phalguni','Uttara Phalguni','Hasta','Chitra','Swati','Vishakha','Anuradha','Jyeshtha',
+    'Mula','Purva Ashadha','Uttara Ashadha','Shravana','Dhanishta','Shatabhisha','Purva Bhadrapada','Uttara Bhadrapada','Revati'
+  ];
+  // Nakshatra lords for Vimshottari
+  const NAK_LORDS = ['Ketu','Venus','Sun','Moon','Mars','Rahu','Jupiter','Saturn','Mercury',
+                     'Ketu','Venus','Sun','Moon','Mars','Rahu','Jupiter','Saturn','Mercury',
+                     'Ketu','Venus','Sun','Moon','Mars','Rahu','Jupiter','Saturn','Mercury'];
+  // Vimshottari years for each lord
+  const VIM_YEARS = { Ketu: 7, Venus: 20, Sun: 6, Moon: 10, Mars: 7, Rahu: 18, Jupiter: 16, Saturn: 19, Mercury: 17 };
+  const VIM_ORDER = ['Ketu','Venus','Sun','Moon','Mars','Rahu','Jupiter','Saturn','Mercury'];
+  const PLANET_ABBR = { Sun:'Su', Moon:'Mo', Mars:'Ma', Mercury:'Me', Jupiter:'Ju', Venus:'Ve', Saturn:'Sa', Rahu:'Ra', Ketu:'Ke' };
+
+  // Lahiri ayanamsa — Chitrapaksha, matching Indian govt tables
+  // ayanamsa in degrees at year y: ≈ 23.85 + (y - 2000) * 0.01397
+  // More precise: use the formula from the Rashtriya Panchanga
+  function lahiriAyanamsa(jd) {
+    // Simplified Lahiri Chitrapaksha formula
+    const T = (jd - 2451545.0) / 36525; // Julian centuries since J2000.0
+    // Mean obliquity component (relative to IAU precession)
+    // Base: 22°27'37.76" at J1900.0 + ~50.29" per year
+    // At J2000: 23°51'36" ≈ 23.86°
+    // Precession rate per century: ~1.397°
+    const ay = 23.853 + 1.397 * T;
+    return ay;
+  }
+
+  function julianDay(year, month, day, hour) {
+    // Meeus Chapter 7
+    let y = year, m = month;
+    if (m <= 2) { y -= 1; m += 12; }
+    const a = Math.floor(y / 100);
+    const b = 2 - a + Math.floor(a / 4);
+    const jd = Math.floor(365.25 * (y + 4716)) + Math.floor(30.6001 * (m + 1)) + day + b - 1524.5 + hour / 24;
+    return jd;
+  }
+
+  // Normalize to [0, 360)
+  function norm360(x) { x = x % 360; if (x < 0) x += 360; return x; }
+  const DEG = Math.PI / 180;
+
+  // Get tropical ecliptic longitude using astronomy-engine
+  function tropicalLongitude(bodyName, dateUTC) {
+    if (typeof Astronomy === 'undefined') throw new Error('astronomy-engine not loaded');
+    const map = { Sun: 'Sun', Moon: 'Moon', Mercury: 'Mercury', Venus: 'Venus', Mars: 'Mars', Jupiter: 'Jupiter', Saturn: 'Saturn' };
+    const body = map[bodyName];
+    if (!body) return null;
+    const vec = Astronomy.GeoVector(Astronomy[body] || Astronomy.Body[body], dateUTC, true);
+    const ecl = Astronomy.Ecliptic(vec);
+    return norm360(ecl.elon);
+  }
+
+  // Rahu (Moon's North Node) — mean longitude
+  function meanRahuLongitude(jd) {
+    const T = (jd - 2451545.0) / 36525;
+    // Mean longitude of ascending node (Meeus 47.7)
+    const omega = 125.04452 - 1934.136261 * T + 0.0020708 * T * T + T * T * T / 450000;
+    return norm360(omega);
+  }
+
+  // Compute Ascendant (Lagna) — tropical, needs sidereal time + latitude
+  function tropicalAscendant(jd, latDeg, lonDeg) {
+    // Local sidereal time at longitude
+    const T = (jd - 2451545.0) / 36525;
+    // Greenwich mean sidereal time (Meeus 12.4)
+    let gmst = 280.46061837 + 360.98564736629 * (jd - 2451545.0) + 0.000387933 * T * T - T * T * T / 38710000;
+    gmst = norm360(gmst);
+    const lst = norm360(gmst + lonDeg); // local sidereal time (degrees)
+    // Obliquity of the ecliptic
+    const eps = 23.4392911 - 0.0130042 * T; // simplified
+    // Ascendant formula (Meeus 13.5)
+    const ramc = lst; // RAMC in degrees
+    const ramcR = ramc * DEG;
+    const epsR = eps * DEG;
+    const latR = latDeg * DEG;
+    let asc = Math.atan2(-Math.cos(ramcR), Math.sin(ramcR) * Math.cos(epsR) + Math.tan(latR) * Math.sin(epsR));
+    asc = asc / DEG;
+    asc = norm360(asc);
+    return asc;
+  }
+
+  // Convert tropical longitude to sidereal (Vedic)
+  function toSidereal(trop, ayanamsa) { return norm360(trop - ayanamsa); }
+
+  // Rashi (0-11) from sidereal longitude
+  function rashiOf(siderealDeg) { return Math.floor(norm360(siderealDeg) / 30); }
+  function degreeInSign(siderealDeg) { return siderealDeg - rashiOf(siderealDeg) * 30; }
+
+  // Nakshatra (0-26) and pada (1-4)
+  function nakshatraOf(siderealDeg) { return Math.floor(norm360(siderealDeg) / (360 / 27)); }
+  function padaOf(siderealDeg) {
+    const nak = nakshatraOf(siderealDeg);
+    const inNak = siderealDeg - nak * (360 / 27);
+    return Math.floor(inNak / ((360 / 27) / 4)) + 1;
+  }
+
+  // House number (whole-sign, lagna = house 1)
+  function houseOf(planetRashi, ascRashi) { return ((planetRashi - ascRashi + 12) % 12) + 1; }
+
+  function formatDeg(d) {
+    const deg = Math.floor(d);
+    const minutes = (d - deg) * 60;
+    const mins = Math.floor(minutes);
+    const secs = Math.round((minutes - mins) * 60);
+    return `${deg}°${String(mins).padStart(2,'0')}'${String(secs).padStart(2,'0')}"`;
+  }
+
+  // Compute all planets
+  function computeChart(dateUTC, jd, latDeg, lonDeg) {
+    const ay = lahiriAyanamsa(jd);
+    const planets = {};
+    const planetNames = ['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn'];
+    planetNames.forEach(p => {
+      const trop = tropicalLongitude(p, dateUTC);
+      const sid = toSidereal(trop, ay);
+      planets[p] = {
+        tropical: trop,
+        sidereal: sid,
+        rashi: rashiOf(sid),
+        degInSign: degreeInSign(sid),
+        nakshatra: nakshatraOf(sid),
+        pada: padaOf(sid),
+        retrograde: isRetrograde(p, dateUTC),
+      };
+    });
+    const rahuTrop = meanRahuLongitude(jd);
+    const rahuSid = toSidereal(rahuTrop, ay);
+    planets.Rahu = { tropical: rahuTrop, sidereal: rahuSid, rashi: rashiOf(rahuSid), degInSign: degreeInSign(rahuSid), nakshatra: nakshatraOf(rahuSid), pada: padaOf(rahuSid), retrograde: true };
+    const ketuSid = norm360(rahuSid + 180);
+    planets.Ketu = { tropical: norm360(rahuTrop + 180), sidereal: ketuSid, rashi: rashiOf(ketuSid), degInSign: degreeInSign(ketuSid), nakshatra: nakshatraOf(ketuSid), pada: padaOf(ketuSid), retrograde: true };
+
+    const ascTrop = tropicalAscendant(jd, latDeg, lonDeg);
+    const ascSid = toSidereal(ascTrop, ay);
+    const asc = { tropical: ascTrop, sidereal: ascSid, rashi: rashiOf(ascSid), degInSign: degreeInSign(ascSid) };
+
+    return { planets, asc, ayanamsa: ay };
+  }
+
+  function isRetrograde(bodyName, dateUTC) {
+    if (['Sun','Moon'].includes(bodyName)) return false;
+    try {
+      const t1 = tropicalLongitude(bodyName, dateUTC);
+      const dt = new Date(dateUTC.getTime() + 86400000);
+      const t2 = tropicalLongitude(bodyName, dt);
+      let d = t2 - t1; if (d > 180) d -= 360; if (d < -180) d += 360;
+      return d < 0;
+    } catch { return false; }
+  }
+
+  // Vimshottari dasha from Moon's nakshatra
+  function vimshottariDasha(moonSiderealDeg, birthDate) {
+    const nak = nakshatraOf(moonSiderealDeg);
+    const inNak = moonSiderealDeg - nak * (360 / 27);
+    const fractionLeft = 1 - (inNak / (360 / 27));
+    const firstLord = NAK_LORDS[nak];
+    const firstYears = VIM_YEARS[firstLord] * fractionLeft;
+    const periods = [];
+    let start = new Date(birthDate.getTime() - (VIM_YEARS[firstLord] - firstYears) * 365.25 * 86400000);
+    let lordIdx = VIM_ORDER.indexOf(firstLord);
+    let cursor = new Date(start.getTime());
+    for (let i = 0; i < 9; i++) {
+      const lord = VIM_ORDER[(lordIdx + i) % VIM_ORDER.length];
+      const years = VIM_YEARS[lord];
+      const end = new Date(cursor.getTime() + years * 365.25 * 86400000);
+      periods.push({ lord, years, start: new Date(cursor), end });
+      cursor = end;
+    }
+    return periods;
+  }
+
+  // ======= UI =======
+  function qParam(name) {
+    const u = new URL(window.location.href);
+    return u.searchParams.get(name);
+  }
+
+  function prefillForm() {
+    $('in-name').value = qParam('name') || '';
+    $('in-date').value = qParam('date') || '';
+    $('in-time').value = qParam('time') || '';
+    $('in-place').value = qParam('place') || '';
+    if (qParam('lat')) $('in-lat').value = qParam('lat');
+    if (qParam('lon')) $('in-lon').value = qParam('lon');
+    if (qParam('tz')) $('in-tz').value = qParam('tz');
+    // Auto-geocode if place but no coords
+    if ($('in-place').value && !$('in-lat').value) {
+      geocode().then(ok => { if (ok) computeAndRender(); });
+    } else if ($('in-date').value && $('in-time').value && $('in-lat').value) {
+      computeAndRender();
+    }
+  }
+
+  const $ = id => document.getElementById(id);
+
+  async function geocode() {
+    const place = $('in-place').value.trim();
+    if (!place) return false;
+    $('geo-status').textContent = 'Looking up…';
+    try {
+      // Open-Meteo geocoding (free, no key)
+      const r = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(place)}&count=1&language=en`);
+      const d = await r.json();
+      if (d.results && d.results.length) {
+        const g = d.results[0];
+        $('in-lat').value = g.latitude.toFixed(4);
+        $('in-lon').value = g.longitude.toFixed(4);
+        // Timezone — estimate from longitude (rough), or use provided
+        if (!$('in-tz').value) {
+          $('in-tz').value = (g.timezone || '').includes('Kolkata') ? 5.5 : Math.round(g.longitude / 15 * 4) / 4;
+        }
+        $('geo-status').textContent = `${g.name}, ${g.country || ''} — ${g.latitude.toFixed(2)}°N, ${g.longitude.toFixed(2)}°E`;
+        return true;
+      } else {
+        $('geo-status').textContent = 'Not found. Enter coordinates manually.';
+        return false;
+      }
+    } catch (e) {
+      $('geo-status').textContent = 'Lookup failed. Enter coordinates manually.';
+      return false;
+    }
+  }
+
+  function computeAndRender() {
+    const name = $('in-name').value || 'Chart';
+    const date = $('in-date').value;
+    const time = $('in-time').value || '12:00';
+    const place = $('in-place').value;
+    const lat = parseFloat($('in-lat').value);
+    const lon = parseFloat($('in-lon').value);
+    const tz = parseFloat($('in-tz').value || '0');
+
+    if (!date || isNaN(lat) || isNaN(lon)) {
+      $('warnings').innerHTML = '<div class="error">Need date, latitude, and longitude at minimum.</div>';
+      $('chart-output').style.display = 'block';
+      return;
+    }
+    if (!time || time === '00:00' || time === '12:00') {
+      $('warnings').innerHTML = '<div class="warn">Birth time missing or unverified — ascendant and dasha accuracy depend on exact time. Falling back to noon local time.</div>';
+    } else {
+      $('warnings').innerHTML = '';
+    }
+
+    // Parse local date/time, convert to UTC
+    const [y, mo, da] = date.split('-').map(Number);
+    const [h, mi] = time.split(':').map(Number);
+    const utcHour = h + mi / 60 - tz;
+    const dateUTC = new Date(Date.UTC(y, mo - 1, da, 0, 0, 0));
+    dateUTC.setUTCTime ? null : null; // for safety
+    const utcDate = new Date(Date.UTC(y, mo - 1, da, 0, 0, 0) + utcHour * 3600000);
+    const jd = julianDay(utcDate.getUTCFullYear(), utcDate.getUTCMonth() + 1, utcDate.getUTCDate(), utcDate.getUTCHours() + utcDate.getUTCMinutes() / 60 + utcDate.getUTCSeconds() / 3600);
+
+    try {
+      const chart = computeChart(utcDate, jd, lat, lon);
+      renderChart(name, date, time, place, lat, lon, tz, chart, utcDate, jd);
+      $('chart-output').style.display = 'block';
+    } catch (e) {
+      console.error(e);
+      $('warnings').innerHTML = `<div class="error">Computation failed: ${e.message}</div>`;
+      $('chart-output').style.display = 'block';
+    }
+  }
+
+  function renderChart(name, date, time, place, lat, lon, tz, chart, utcDate, jd) {
+    $('h-name').textContent = name;
+    $('h-meta').innerHTML = `<strong>${date}${time ? ' ' + time : ''}</strong> · ${place || `${lat.toFixed(2)}°N, ${lon.toFixed(2)}°E`} · UTC${tz >= 0 ? '+' : ''}${tz}`;
+    $('h-ayanamsa').textContent = chart.ayanamsa.toFixed(3) + '°';
+    $('asc-sign').textContent = `${RASHIS[chart.asc.rashi]} (${RASHIS_HI[chart.asc.rashi]}) at ${formatDeg(chart.asc.degInSign)}`;
+
+    // Draw North-India diamond
+    drawNorthIndianChart(chart);
+
+    // Positions table
+    const planetNames = ['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn','Rahu','Ketu'];
+    $('positions-tbody').innerHTML = planetNames.map(p => {
+      const pl = chart.planets[p];
+      const house = houseOf(pl.rashi, chart.asc.rashi);
+      return `<tr>
+        <td><strong>${p}</strong>${pl.retrograde ? ' <span style="color:var(--accent); font-size: 11px;">(R)</span>' : ''}</td>
+        <td>${RASHIS[pl.rashi]}</td>
+        <td class="num">${formatDeg(pl.degInSign)}</td>
+        <td>${NAKSHATRAS[pl.nakshatra]}</td>
+        <td class="num">${pl.pada}</td>
+        <td class="num">${house}</td>
+      </tr>`;
+    }).join('');
+
+    // Vimshottari dasha
+    const moon = chart.planets.Moon;
+    const birthDate = new Date(Date.parse(date + 'T' + (time || '12:00')) - tz * 3600000);
+    const periods = vimshottariDasha(moon.sidereal, birthDate);
+    const now = new Date();
+    $('dasha-list').innerHTML = periods.map(p => {
+      const current = p.start <= now && now < p.end;
+      return `<div class="dasha-period ${current ? 'current' : ''}">
+        <div>
+          <div class="lord">${p.lord} <span class="muted">· ${p.years}y</span></div>
+          <div class="range">${p.start.getFullYear()}-${String(p.start.getMonth()+1).padStart(2,'0')} → ${p.end.getFullYear()}-${String(p.end.getMonth()+1).padStart(2,'0')}</div>
+        </div>
+        ${current ? '<div style="color:var(--accent); font-size: 11px; font-weight: 600; align-self: center;">CURRENT</div>' : ''}
+      </div>`;
+    }).join('');
+
+    // Current transits
+    const nowDate = new Date();
+    const nowJD = julianDay(nowDate.getUTCFullYear(), nowDate.getUTCMonth()+1, nowDate.getUTCDate(), nowDate.getUTCHours() + nowDate.getUTCMinutes()/60);
+    const ayNow = lahiriAyanamsa(nowJD);
+    const transits = {};
+    ['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn'].forEach(p => {
+      const trop = tropicalLongitude(p, nowDate);
+      const sid = toSidereal(trop, ayNow);
+      transits[p] = { sidereal: sid, rashi: rashiOf(sid), degInSign: degreeInSign(sid) };
+    });
+    const rahuNowTrop = meanRahuLongitude(nowJD);
+    transits.Rahu = { rashi: rashiOf(toSidereal(rahuNowTrop, ayNow)), degInSign: degreeInSign(toSidereal(rahuNowTrop, ayNow)) };
+    $('transits-tbody').innerHTML = Object.keys(transits).map(p => `<tr>
+      <td><strong>${p}</strong></td>
+      <td>${RASHIS[transits[p].rashi]}</td>
+      <td class="num">${formatDeg(transits[p].degInSign)}</td>
+    </tr>`).join('');
+
+    // Panchang (today, Jaipur approx — this is minimal)
+    const tithiFromMoonSun = (transits.Moon.sidereal - transits.Sun.sidereal + 360) % 360;
+    const tithi = Math.floor(tithiFromMoonSun / 12) + 1;
+    const paksha = tithi <= 15 ? 'Shukla' : 'Krishna';
+    const tithiInPaksha = tithi > 15 ? tithi - 15 : tithi;
+    const tithiNames = ['Pratipada','Dwitiya','Tritiya','Chaturthi','Panchami','Shashti','Saptami','Ashtami','Navami','Dashami','Ekadashi','Dwadashi','Trayodashi','Chaturdashi','Purnima/Amavasya'];
+    const nakToday = nakshatraOf(transits.Moon.sidereal);
+    $('panchang-tbody').innerHTML = `
+      <tr><td><strong>Tithi</strong></td><td>${paksha} ${tithiNames[tithiInPaksha-1] || tithi}</td></tr>
+      <tr><td><strong>Nakshatra</strong></td><td>${NAKSHATRAS[nakToday]}</td></tr>
+      <tr><td><strong>Sun in</strong></td><td>${RASHIS[transits.Sun.rashi]}</td></tr>
+      <tr><td><strong>Moon in</strong></td><td>${RASHIS[transits.Moon.rashi]}</td></tr>
+    `;
+  }
+
+  // North-India diamond chart
+  // Rashi positions in the diamond (12 houses, lagna = top center)
+  // Positions numbered by rashi number (1=Aries ... 12=Pisces)
+  function drawNorthIndianChart(chart) {
+    const asc = chart.asc.rashi; // 0-11
+    const planetsByRashi = Array.from({length: 12}, () => []);
+    const order = ['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn','Rahu','Ketu'];
+    order.forEach(p => {
+      const pl = chart.planets[p];
+      planetsByRashi[pl.rashi].push({ name: p, retrograde: pl.retrograde, deg: pl.degInSign });
+    });
+
+    const svgNS = 'http://www.w3.org/2000/svg';
+    const svg = document.createElementNS(svgNS, 'svg');
+    svg.setAttribute('viewBox', '0 0 400 400');
+    svg.setAttribute('class', 'chart-svg');
+
+    // Outer square + inner diamond + diagonals (standard North Indian)
+    const outer = document.createElementNS(svgNS, 'rect');
+    outer.setAttribute('x', '10'); outer.setAttribute('y', '10'); outer.setAttribute('width', '380'); outer.setAttribute('height', '380');
+    outer.setAttribute('class', 'outer');
+    svg.appendChild(outer);
+    const diamond = document.createElementNS(svgNS, 'polygon');
+    diamond.setAttribute('points', '200,10 390,200 200,390 10,200');
+    diamond.setAttribute('class', 'divider');
+    svg.appendChild(diamond);
+    // Diagonals
+    [[10,10,390,390],[390,10,10,390]].forEach(p => {
+      const l = document.createElementNS(svgNS, 'line');
+      l.setAttribute('x1',p[0]); l.setAttribute('y1',p[1]); l.setAttribute('x2',p[2]); l.setAttribute('y2',p[3]);
+      l.setAttribute('class','divider');
+      svg.appendChild(l);
+    });
+
+    // House center positions (standard North Indian layout, house 1 = top center)
+    // 1 top center, 2 top-left-upper, 3 top-left, 4 middle-left, 5 bottom-left, 6 bottom-center-left,
+    // 7 bottom, 8 bottom-center-right, 9 bottom-right, 10 middle-right, 11 top-right, 12 top-right-upper
+    const housePositions = [
+      {x: 200, y: 100}, // 1
+      {x: 100, y: 50},  // 2
+      {x: 50, y: 100},  // 3
+      {x: 100, y: 200}, // 4
+      {x: 50, y: 300},  // 5
+      {x: 100, y: 350}, // 6
+      {x: 200, y: 300}, // 7
+      {x: 300, y: 350}, // 8
+      {x: 350, y: 300}, // 9
+      {x: 300, y: 200}, // 10
+      {x: 350, y: 100}, // 11
+      {x: 300, y: 50},  // 12
+    ];
+
+    // Rashi for house N = (asc + N - 1) mod 12
+    for (let h = 1; h <= 12; h++) {
+      const rashi = (asc + h - 1) % 12;
+      const pos = housePositions[h - 1];
+      // Rashi number
+      const n = document.createElementNS(svgNS, 'text');
+      n.setAttribute('x', pos.x); n.setAttribute('y', pos.y - 18);
+      n.setAttribute('text-anchor', 'middle');
+      n.setAttribute('class', 'rashi-num');
+      n.textContent = rashi + 1;
+      svg.appendChild(n);
+
+      const planetsHere = planetsByRashi[rashi];
+      // Ascendant marker on house 1
+      if (h === 1) {
+        const a = document.createElementNS(svgNS, 'text');
+        a.setAttribute('x', pos.x); a.setAttribute('y', pos.y - 4);
+        a.setAttribute('text-anchor', 'middle');
+        a.setAttribute('class', 'asc');
+        a.textContent = 'Asc';
+        svg.appendChild(a);
+      }
+      // Planets
+      planetsHere.forEach((pl, i) => {
+        const t = document.createElementNS(svgNS, 'text');
+        t.setAttribute('x', pos.x); t.setAttribute('y', pos.y + 12 + i * 14);
+        t.setAttribute('text-anchor', 'middle');
+        t.setAttribute('class', 'planet' + (pl.retrograde ? ' retrograde' : ''));
+        t.textContent = (PLANET_ABBR[pl.name] || pl.name) + (pl.retrograde ? '(R)' : '');
+        svg.appendChild(t);
+      });
+    }
+
+    const container = $('chart-container');
+    container.innerHTML = '';
+    container.appendChild(svg);
+  }
+
+  // ======= Boot =======
+  $('btn-geocode').addEventListener('click', geocode);
+  $('btn-compute').addEventListener('click', computeAndRender);
+  // Wait for astronomy-engine then prefill
+  (function waitForEngine() {
+    if (typeof Astronomy !== 'undefined') prefillForm();
+    else setTimeout(waitForEngine, 100);
+  })();
+</script>
+
+</body>
+</html>

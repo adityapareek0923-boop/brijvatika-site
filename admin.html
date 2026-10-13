@@ -7,80 +7,148 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Brij Vatika — Admin</title>
 <meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='none' stroke='%23a0742d' stroke-width='1.5'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%23a0742d'/%3E%3C/svg%3E">
 <style>
-  :root { --bg:#fbf9f4; --surface:#fff; --surface-2:#f3efe4; --ink:#1d1d1f; --ink-2:#515154; --ink-3:#86868b; --line:#e2dcc8; --accent:#8b6b3a; --accent-hover:#74582c; --ok:#30861a; --danger:#c0392b; --warn:#8a4a0b; }
+  :root {
+    --bg: #fbf6ea;
+    --surface: #fff;
+    --surface-2: #f5efdf;
+    --ink: #1a1a1c;
+    --ink-2: #4a4a52;
+    --ink-3: #86868b;
+    --line: #e5dcc3;
+    --accent: #a0742d;
+    --accent-hover: #7f5a1f;
+    --midnight: #1a1b3a;
+    --ok: #30861a;
+    --sage: #4a6b4a;
+    --danger: #c0392b;
+    --warn: #8a4a0b;
+  }
   * { box-sizing: border-box; }
   body { margin: 0; font-family: "Inter", sans-serif; background: var(--bg); color: var(--ink); -webkit-font-smoothing: antialiased; }
-  h1, h2 { font-family: "Cormorant Garamond", serif; font-weight: 500; letter-spacing: -0.01em; margin: 0; }
+  h1, h2, h3 { font-family: "Cormorant Garamond", serif; font-weight: 500; letter-spacing: -0.01em; margin: 0; }
   .topbar { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--bg) 85%, transparent); backdrop-filter: blur(16px); border-bottom: 1px solid var(--line); padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; }
   .brand { font-family: "Cormorant Garamond", serif; font-size: 20px; font-weight: 500; }
-  .brand small { font-family: "Inter", sans-serif; font-size: 11px; color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.4px; margin-left: 6px; font-weight: 500; }
-  .topbar button { background: transparent; border: 1px solid var(--line); border-radius: 20px; padding: 6px 12px; font-size: 12px; color: var(--ink-2); cursor: pointer; font-family: inherit; }
-  .topbar button:hover { background: var(--surface); }
+  .brand em { font-style: italic; color: var(--accent); }
+  .brand small { font-family: "Inter", sans-serif; font-size: 11px; color: var(--ink-3); text-transform: uppercase; letter-spacing: 1px; margin-left: 8px; font-weight: 600; }
+  .topbar button { background: transparent; border: 1px solid var(--line); border-radius: 20px; padding: 6px 14px; font-size: 12px; color: var(--ink-2); cursor: pointer; font-family: inherit; }
+  .topbar button:hover { background: var(--surface); border-color: var(--accent); color: var(--accent); }
 
   /* Login */
-  .login { max-width: 400px; margin: 80px auto; padding: 36px; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; }
-  .login h1 { font-size: 28px; margin-bottom: 8px; }
+  .login { max-width: 400px; margin: 80px auto; padding: 36px; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 20px 40px rgba(26,27,58,0.06); }
+  .login h1 { font-size: 32px; margin-bottom: 8px; }
   .login p { margin: 0 0 20px; font-size: 14px; color: var(--ink-2); line-height: 1.5; }
-  .login input { width: 100%; padding: 11px 14px; font-size: 15px; background: var(--bg); border: 1px solid var(--line); border-radius: 10px; margin-bottom: 10px; font-family: inherit; }
+  .login input { width: 100%; padding: 12px 14px; font-size: 15px; background: var(--bg); border: 1.5px solid var(--line); border-radius: 10px; margin-bottom: 10px; font-family: inherit; }
   .login input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 15%, transparent); }
-  .login button { width: 100%; background: var(--accent); color: #fff; border: none; padding: 12px; border-radius: 10px; font-size: 15px; font-weight: 500; cursor: pointer; font-family: inherit; }
-  .login button:hover { background: var(--accent-hover); }
-  .msg { font-size: 13px; margin-top: 12px; padding: 10px; border-radius: 8px; display: none; }
+  .login button { width: 100%; background: var(--midnight); color: #fff; border: none; padding: 13px; border-radius: 10px; font-size: 15px; font-weight: 500; cursor: pointer; font-family: inherit; }
+  .login button:hover { background: var(--accent); }
+  .msg { font-size: 13px; margin-top: 12px; padding: 10px 12px; border-radius: 8px; display: none; }
   .msg.show { display: block; }
   .msg.err { background: color-mix(in srgb, var(--danger) 10%, transparent); color: var(--danger); }
   .msg.ok  { background: color-mix(in srgb, var(--ok) 10%, transparent); color: var(--ok); }
   .note { font-size: 11px; color: var(--ink-3); text-align: center; margin-top: 14px; }
 
-  /* App */
-  .tabs { display: flex; gap: 4px; padding: 0 20px; border-bottom: 1px solid var(--line); background: var(--bg); position: sticky; top: 50px; z-index: 9; }
-  .tab-btn { background: transparent; border: none; padding: 12px 16px; font-size: 13px; color: var(--ink-2); cursor: pointer; border-bottom: 2px solid transparent; font-family: inherit; display: inline-flex; align-items: center; gap: 7px; }
-  .tab-btn.active { color: var(--ink); border-bottom-color: var(--accent); font-weight: 500; }
-  .tab-btn .pill { background: var(--surface-2); color: var(--ink-2); font-size: 10px; padding: 1px 7px; border-radius: 10px; font-weight: 500; }
+  /* Tabs */
+  .tabs { display: flex; gap: 2px; padding: 0 20px; border-bottom: 1px solid var(--line); background: var(--bg); position: sticky; top: 50px; z-index: 9; }
+  .tab-btn { background: transparent; border: none; padding: 14px 18px; font-size: 13px; color: var(--ink-2); cursor: pointer; border-bottom: 2px solid transparent; font-family: inherit; display: inline-flex; align-items: center; gap: 7px; font-weight: 500; }
+  .tab-btn.active { color: var(--ink); border-bottom-color: var(--accent); }
+  .tab-btn .pill { background: var(--surface-2); color: var(--ink-2); font-size: 10px; padding: 2px 8px; border-radius: 10px; font-weight: 600; }
   .tab-btn .pill.alert { background: var(--accent); color: #fff; }
-  .view { display: none; max-width: 1100px; margin: 0 auto; padding: 24px 20px; }
+  .view { display: none; max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
   .view.active { display: block; }
+  .view-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
+  .view-head h2 { font-size: 24px; }
+  .view-head p { color: var(--ink-3); font-size: 13px; margin: 0; }
 
   /* Lists */
   .list { display: flex; flex-direction: column; gap: 10px; }
-  .row { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px 20px; cursor: pointer; transition: background 0.12s ease, border-color 0.12s ease; }
-  .row:hover { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 2%, var(--surface)); }
+  .row { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px 20px; cursor: pointer; transition: all 0.15s ease; }
+  .row:hover { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 2%, var(--surface)); transform: translateY(-1px); }
   .row.new { border-left: 3px solid var(--accent); }
   .row-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
-  .row-head .who { font-size: 15px; font-weight: 500; margin: 0 0 2px; }
+  .row-head .who { font-size: 15px; font-weight: 600; margin: 0 0 2px; }
   .row-head .meta { font-size: 12px; color: var(--ink-3); }
   .row-head .time { font-size: 12px; color: var(--ink-3); white-space: nowrap; }
-  .row-body { margin-top: 8px; font-size: 13px; color: var(--ink-2); line-height: 1.5; max-height: 60px; overflow: hidden; text-overflow: ellipsis; }
-  .badge { display: inline-block; padding: 2px 9px; border-radius: 10px; font-size: 10.5px; font-weight: 500; margin-left: 6px; text-transform: uppercase; letter-spacing: 0.3px; }
+  .row-body { margin-top: 8px; font-size: 13px; color: var(--ink-2); line-height: 1.5; }
+  .row-pills { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+  .pill-tag { font-size: 11px; padding: 2px 8px; background: var(--surface-2); border-radius: 10px; color: var(--ink-2); font-weight: 500; }
+  .pill-tag.cat { background: color-mix(in srgb, var(--accent) 10%, transparent); color: var(--accent); }
+  .badge { display: inline-block; padding: 2px 9px; border-radius: 10px; font-size: 10.5px; font-weight: 600; margin-left: 6px; text-transform: uppercase; letter-spacing: 0.3px; }
   .b-new { background: color-mix(in srgb, var(--accent) 15%, transparent); color: var(--accent); }
-  .b-replied { background: color-mix(in srgb, var(--ok) 15%, transparent); color: var(--ok); }
-  .b-booked { background: color-mix(in srgb, var(--ok) 15%, transparent); color: var(--ok); }
+  .b-replied, .b-scheduled, .b-booked, .b-completed, .b-ready_to_schedule { background: color-mix(in srgb, var(--sage) 15%, transparent); color: var(--sage); }
   .b-declined, .b-spam, .b-cancelled { background: color-mix(in srgb, var(--ink-3) 20%, transparent); color: var(--ink-3); }
   .b-awaiting_details { background: color-mix(in srgb, var(--warn) 15%, transparent); color: var(--warn); }
-  .b-scheduled { background: color-mix(in srgb, var(--accent) 15%, transparent); color: var(--accent); }
-  .b-completed { background: color-mix(in srgb, var(--ok) 15%, transparent); color: var(--ok); }
-  .empty { text-align: center; padding: 60px 20px; color: var(--ink-3); }
+  .empty { text-align: center; padding: 80px 20px; color: var(--ink-3); font-size: 14px; }
+
+  /* Calendar view */
+  .cal-controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
+  .cal-controls .month { font-family: "Cormorant Garamond", serif; font-size: 24px; font-weight: 500; }
+  .cal-controls button { background: var(--surface); border: 1px solid var(--line); border-radius: 50%; width: 36px; height: 36px; cursor: pointer; font-size: 16px; color: var(--ink); display: inline-flex; align-items: center; justify-content: center; }
+  .cal-controls button:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+  .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin-bottom: 24px; }
+  .cal-dow { text-align: center; font-size: 10px; color: var(--ink-3); text-transform: uppercase; letter-spacing: 1.2px; font-weight: 600; padding: 6px 0; }
+  .cal-day { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px; min-height: 76px; cursor: pointer; transition: all 0.1s ease; position: relative; display: flex; flex-direction: column; gap: 4px; }
+  .cal-day:hover:not(.other-month):not(.past) { border-color: var(--accent); }
+  .cal-day.other-month { opacity: 0.3; cursor: default; }
+  .cal-day.past { opacity: 0.4; cursor: default; }
+  .cal-day.today { border-color: var(--accent); }
+  .cal-day.has-blocked { background: color-mix(in srgb, var(--warn) 5%, var(--surface)); }
+  .cal-day.has-booked { background: color-mix(in srgb, var(--sage) 5%, var(--surface)); }
+  .cal-day.selected { border: 2px solid var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 15%, transparent); }
+  .cal-day .num { font-size: 15px; font-weight: 600; color: var(--ink); }
+  .cal-day .markers { display: flex; gap: 2px; flex-wrap: wrap; margin-top: auto; }
+  .marker { width: 6px; height: 6px; border-radius: 50%; }
+  .marker.blocked { background: var(--warn); }
+  .marker.booked { background: var(--sage); }
+
+  .slot-detail { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 20px; margin-bottom: 20px; }
+  .slot-detail h3 { font-size: 20px; margin-bottom: 14px; }
+  .slot-detail .slot-row { display: flex; align-items: center; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--surface-2); }
+  .slot-detail .slot-row:last-child { border-bottom: none; }
+  .slot-detail .slot-time { font-weight: 600; font-size: 15px; min-width: 80px; }
+  .slot-detail .slot-status { flex: 1; font-size: 13px; color: var(--ink-2); }
+  .slot-detail .slot-actions { display: flex; gap: 6px; }
+  .slot-detail .slot-actions button { background: transparent; border: 1px solid var(--line); border-radius: 20px; padding: 5px 12px; font-size: 12px; cursor: pointer; color: var(--ink-2); font-family: inherit; }
+  .slot-detail .slot-actions button.block { color: var(--warn); border-color: color-mix(in srgb, var(--warn) 30%, var(--line)); }
+  .slot-detail .slot-actions button.unblock { color: var(--sage); border-color: color-mix(in srgb, var(--sage) 30%, var(--line)); }
+  .slot-detail .slot-actions button:hover { background: var(--surface-2); }
+  .slot-detail .slot-row.blocked .slot-status::before { content: "● "; color: var(--warn); }
+  .slot-detail .slot-row.booked .slot-status::before { content: "● "; color: var(--sage); }
 
   /* Detail modal */
-  .modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.4); display: none; align-items: center; justify-content: center; z-index: 200; padding: 20px; }
+  .modal-backdrop { position: fixed; inset: 0; background: rgba(26, 27, 58, 0.5); backdrop-filter: blur(6px); display: none; align-items: center; justify-content: center; z-index: 200; padding: 20px; }
   .modal-backdrop.show { display: flex; }
-  .modal { background: var(--surface); border-radius: 16px; width: 100%; max-width: 680px; max-height: 92vh; display: flex; flex-direction: column; box-shadow: 0 20px 60px rgba(0,0,0,0.25); overflow: hidden; }
-  .modal-head { padding: 18px 22px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; }
+  .modal { background: var(--surface); border-radius: 16px; width: 100%; max-width: 720px; max-height: 92vh; display: flex; flex-direction: column; box-shadow: 0 24px 60px rgba(0,0,0,0.3); overflow: hidden; }
+  .modal-head { padding: 20px 24px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; }
   .modal-head h2 { font-size: 22px; }
   .modal-head .close { background: transparent; border: none; font-size: 22px; cursor: pointer; color: var(--ink-3); padding: 0 4px; }
-  .modal-body { padding: 20px 22px; overflow-y: auto; flex: 1; }
+  .modal-body { padding: 20px 24px; overflow-y: auto; flex: 1; }
+  .modal-body .section-head { font-size: 11px; color: var(--ink-3); text-transform: uppercase; letter-spacing: 1.2px; font-weight: 600; margin: 20px 0 10px; padding-bottom: 6px; border-bottom: 1px solid var(--surface-2); }
+  .modal-body .section-head:first-child { margin-top: 0; }
   .modal-body .field { margin-bottom: 14px; }
-  .modal-body .field label { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 0.4px; color: var(--ink-3); margin-bottom: 5px; font-weight: 500; }
+  .modal-body .field label { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 0.6px; color: var(--ink-3); margin-bottom: 5px; font-weight: 600; }
   .modal-body .field .val { font-size: 14px; color: var(--ink); line-height: 1.5; word-wrap: break-word; }
-  .modal-body .field input, .modal-body .field select, .modal-body .field textarea { width: 100%; background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; font-size: 14px; font-family: inherit; color: var(--ink); }
+  .modal-body .field input, .modal-body .field select, .modal-body .field textarea { width: 100%; background: var(--bg); border: 1.5px solid var(--line); border-radius: 10px; padding: 10px 12px; font-size: 14px; font-family: inherit; color: var(--ink); }
+  .modal-body .field input:focus, .modal-body .field textarea:focus, .modal-body .field select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 15%, transparent); }
   .modal-body .field textarea { min-height: 120px; resize: vertical; }
   .modal-body .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  .modal-foot { padding: 14px 22px 20px; display: flex; justify-content: flex-end; gap: 10px; border-top: 1px solid var(--line); flex-wrap: wrap; }
-  .modal-foot button { padding: 9px 18px; border-radius: 10px; border: none; font-size: 14px; font-family: inherit; cursor: pointer; font-weight: 500; }
-  .modal-foot .primary { background: var(--accent); color: #fff; }
-  .modal-foot .primary:hover { background: var(--accent-hover); }
+  .modal-body .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  .modal-foot { padding: 14px 24px 20px; display: flex; justify-content: flex-end; gap: 10px; border-top: 1px solid var(--line); flex-wrap: wrap; }
+  .modal-foot button { padding: 10px 20px; border-radius: 10px; border: none; font-size: 14px; font-family: inherit; cursor: pointer; font-weight: 500; }
+  .modal-foot .primary { background: var(--midnight); color: #fff; }
+  .modal-foot .primary:hover { background: var(--accent); }
   .modal-foot .ghost { background: transparent; color: var(--ink-2); border: 1px solid var(--line); }
   .modal-foot .danger { background: #fff; color: var(--danger); border: 1px solid var(--danger); }
+  .modal-foot .chart-link { background: color-mix(in srgb, var(--accent) 10%, var(--surface)); color: var(--accent); border: 1px solid var(--accent); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 10px 16px; border-radius: 10px; font-size: 14px; font-weight: 500; }
+  .modal-foot .chart-link:hover { background: var(--accent); color: #fff; }
+
+  .inline-tag { display: inline-block; font-size: 11px; padding: 3px 10px; background: color-mix(in srgb, var(--accent) 10%, transparent); color: var(--accent); border-radius: 10px; font-weight: 500; margin-right: 6px; }
+
+  @media (max-width: 600px) {
+    .modal-body .two-col, .modal-body .three-col { grid-template-columns: 1fr; }
+    .cal-day { min-height: 64px; padding: 6px; }
+  }
 </style>
 </head>
 <body>
@@ -93,45 +161,72 @@
   <input id="setup-token" type="text" placeholder="Setup token (one-time)" style="display:none">
   <button id="submit-btn">Log in</button>
   <div id="login-msg" class="msg"></div>
-  <p class="note">Session lasts 12 hours. Lose the password and you'll need to reset via Supabase.</p>
+  <p class="note">Session lasts 12 hours.</p>
 </div>
 
 <div id="app-view" style="display:none">
   <div class="topbar">
-    <div class="brand">Brij Vatika<small>Admin</small></div>
+    <div class="brand">Brij <em>Vatika</em><small>Admin</small></div>
     <div><button id="refresh-btn">Refresh</button><button id="logout-btn" style="margin-left:8px">Log out</button></div>
   </div>
   <nav class="tabs">
-    <button class="tab-btn active" data-view="enquiries">Enquiries <span class="pill" id="pill-enq">0</span></button>
+    <button class="tab-btn active" data-view="inquiries">Inquiries <span class="pill" id="pill-enq">0</span></button>
+    <button class="tab-btn" data-view="calendar">Calendar</button>
     <button class="tab-btn" data-view="bookings">Bookings <span class="pill" id="pill-book">0</span></button>
   </nav>
-  <div id="enquiries-view" class="view active">
+
+  <div id="inquiries-view" class="view active">
+    <div class="view-head">
+      <div>
+        <h2>Inquiries</h2>
+        <p>New requests from the booking flow</p>
+      </div>
+    </div>
     <div class="list" id="enquiry-list"><div class="empty">Loading…</div></div>
   </div>
+
+  <div id="calendar-view" class="view">
+    <div class="view-head">
+      <div>
+        <h2>Availability</h2>
+        <p>Click a date to see slots. Unblocked slots are available to buyers. Default working hours 10:00–18:00 IST.</p>
+      </div>
+    </div>
+    <div class="cal-controls">
+      <button id="cal-prev">←</button>
+      <div class="month" id="cal-month"></div>
+      <button id="cal-next">→</button>
+    </div>
+    <div class="cal-grid" id="cal-grid"></div>
+    <div id="slot-detail-root"></div>
+  </div>
+
   <div id="bookings-view" class="view">
+    <div class="view-head">
+      <div>
+        <h2>Bookings</h2>
+        <p>Paid bookings (future: once payment is wired)</p>
+      </div>
+    </div>
     <div class="list" id="booking-list"><div class="empty">Loading…</div></div>
   </div>
 </div>
 
-<!-- Enquiry detail / reply modal -->
+<!-- Inquiry detail -->
 <div class="modal-backdrop" id="enq-modal">
   <div class="modal">
-    <div class="modal-head"><h2>Reply to enquiry</h2><button class="close" onclick="closeModal('enq-modal')">×</button></div>
-    <div class="modal-body">
-      <div class="field"><label>From</label><div class="val" id="enq-from"></div></div>
-      <div class="field"><label>Topic</label><div class="val" id="enq-topic" style="white-space:pre-wrap"></div></div>
-      <div class="field"><label>Subject</label><input type="text" id="enq-subject" value="Re: your enquiry — Brij Vatika"></div>
-      <div class="field"><label>Reply</label><textarea id="enq-reply" placeholder="Namaste [Name], ..."></textarea></div>
-    </div>
+    <div class="modal-head"><h2 id="enq-title">Inquiry</h2><button class="close" onclick="closeModal('enq-modal')">×</button></div>
+    <div class="modal-body" id="enq-modal-body"></div>
     <div class="modal-foot">
-      <button class="ghost" onclick="closeModal('enq-modal')">Cancel</button>
-      <button class="danger" id="enq-decline">Mark declined</button>
+      <button class="ghost" onclick="closeModal('enq-modal')">Close</button>
+      <button class="danger" id="enq-decline">Decline</button>
+      <a id="enq-chart-link" class="chart-link" style="display:none" target="_blank">View chart ↗</a>
       <button class="primary" id="enq-send">Send reply</button>
     </div>
   </div>
 </div>
 
-<!-- Booking detail modal -->
+<!-- Booking detail -->
 <div class="modal-backdrop" id="book-modal">
   <div class="modal">
     <div class="modal-head"><h2>Booking details</h2><button class="close" onclick="closeModal('book-modal')">×</button></div>
@@ -143,16 +238,16 @@
         <div class="field"><label>Birth date</label><input type="date" id="book-birth-date"></div>
       </div>
       <div class="two-col">
-        <div class="field"><label>Birth time (HH:MM, 24h)</label><input type="text" id="book-birth-time" placeholder="14:35 or 'unknown'"></div>
-        <div class="field"><label>Birth place</label><input type="text" id="book-birth-place" placeholder="City, Country"></div>
+        <div class="field"><label>Birth time (HH:MM, 24h)</label><input type="text" id="book-birth-time" placeholder="14:35"></div>
+        <div class="field"><label>Birth place</label><input type="text" id="book-birth-place"></div>
       </div>
       <div class="two-col">
-        <div class="field"><label>Timezone</label><input type="text" id="book-timezone" placeholder="e.g. US/Pacific"></div>
+        <div class="field"><label>Timezone</label><input type="text" id="book-timezone"></div>
         <div class="field"><label>Language</label>
           <select id="book-language"><option value="">—</option><option value="hindi">Hindi</option><option value="english">English</option><option value="either">Either</option></select>
         </div>
       </div>
-      <div class="field"><label>Scheduled at (ISO)</label><input type="datetime-local" id="book-scheduled"></div>
+      <div class="field"><label>Scheduled at</label><input type="datetime-local" id="book-scheduled"></div>
       <div class="field"><label>Status</label>
         <select id="book-status">
           <option value="awaiting_details">Awaiting details</option>
@@ -167,7 +262,24 @@
     </div>
     <div class="modal-foot">
       <button class="ghost" onclick="closeModal('book-modal')">Cancel</button>
+      <a id="book-chart-link" class="chart-link" target="_blank">View chart ↗</a>
       <button class="primary" id="book-save">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Reply modal -->
+<div class="modal-backdrop" id="reply-modal">
+  <div class="modal">
+    <div class="modal-head"><h2>Reply</h2><button class="close" onclick="closeModal('reply-modal')">×</button></div>
+    <div class="modal-body">
+      <div class="field"><label>To</label><div class="val" id="reply-to"></div></div>
+      <div class="field"><label>Subject</label><input type="text" id="reply-subject" value="Re: your inquiry — Brij Vatika"></div>
+      <div class="field"><label>Message</label><textarea id="reply-text" placeholder="Namaste [Name], ..."></textarea></div>
+    </div>
+    <div class="modal-foot">
+      <button class="ghost" onclick="closeModal('reply-modal')">Cancel</button>
+      <button class="primary" id="reply-send">Send</button>
     </div>
   </div>
 </div>
@@ -176,12 +288,19 @@
   const API = "https://tjknrhrgvwnxhkwizujn.supabase.co/functions/v1/admin-api";
   const SB_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRqa25yaHJndndueGhrd2l6dWpuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE3MjQ0MDksImV4cCI6MjEwNzMwMDQwOX0.1KodRnJHY66xMNrWmkq5JDySuNvyBSDAEVj0pPwCIJs";
   const TOKEN_KEY = "bv_admin_token_v1";
-  let token = null, mode = 'login', currentView = 'enquiries';
-  let enquiries = [], bookings = [], editingEnq = null, editingBook = null;
+  const SLOTS = ['10:00','11:00','12:00','14:00','15:00','16:00','17:00','18:00'];
+  let token = null, mode = 'login', currentView = 'inquiries';
+  let enquiries = [], bookings = [], availability = [], editingEnq = null, editingBook = null;
+  let calDate = new Date(); calDate.setDate(1);
+  let selectedCalDate = null;
 
   const $ = id => document.getElementById(id);
   const esc = s => (s == null ? '' : String(s)).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const fmtTime = iso => { if (!iso) return ''; const d = new Date(iso), m = Math.round((Date.now()-d)/60000); if (m<1) return 'just now'; if (m<60) return m+'m'; if (m<1440) return Math.round(m/60)+'h'; return d.toLocaleDateString(); };
+  const fmtDate = iso => iso ? new Date(iso).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' }) : '—';
+
+  const CAT_LABELS = { health:'Health', relationship:'Relationship', career:'Career', finance:'Finance', vastu:'Vastu', other:'Other' };
+  const TIER_LABELS = { brief:'Brief', full:'Full Reading', deep:'Annual Guidance', phone:'Vastu Phone', video:'Vastu + Floor Plan', visit:'Home Visit' };
 
   async function api(path, opts = {}) {
     const headers = { 'Content-Type':'application/json', 'Authorization':'Bearer '+SB_ANON, 'apikey':SB_ANON, ...(opts.headers||{}) };
@@ -229,7 +348,7 @@
       $('login-view').style.display = 'none';
       $('app-view').style.display = 'block';
       await loadAll();
-      setInterval(loadAll, 20000);
+      setInterval(loadAll, 25000);
     } catch (e) { showMsg(e.message, 'err'); }
     finally { $('submit-btn').disabled = false; }
   });
@@ -244,13 +363,15 @@
     currentView = b.dataset.view;
     document.querySelectorAll('.tab-btn').forEach(x => x.classList.toggle('active', x === b));
     document.querySelectorAll('.view').forEach(v => v.classList.toggle('active', v.id === currentView + '-view'));
+    if (currentView === 'calendar') renderCalendarView();
   }));
 
   async function loadAll() {
     try {
-      const [e, bk] = await Promise.all([api('/enquiries'), api('/bookings')]);
-      enquiries = e.enquiries || []; bookings = bk.bookings || [];
+      const [e, bk, av] = await Promise.all([api('/enquiries'), api('/bookings'), api('/availability')]);
+      enquiries = e.enquiries || []; bookings = bk.bookings || []; availability = av.availability || [];
       renderEnquiries(); renderBookings();
+      if (currentView === 'calendar') renderCalendarView();
       const nEnq = enquiries.filter(x => x.status === 'new').length;
       const nBook = bookings.filter(x => x.status === 'awaiting_details' || x.status === 'ready_to_schedule').length;
       $('pill-enq').textContent = nEnq; $('pill-enq').classList.toggle('alert', nEnq > 0);
@@ -260,16 +381,34 @@
 
   function renderEnquiries() {
     const list = $('enquiry-list');
-    if (!enquiries.length) { list.innerHTML = '<div class="empty">No enquiries yet.</div>'; return; }
-    list.innerHTML = enquiries.map(e => `<div class="row ${e.status === 'new' ? 'new' : ''}" data-eid="${e.id}">
-      <div class="row-head"><div><div class="who">${esc(e.name)} <span class="badge b-${esc(e.status)}">${esc(e.status)}</span></div><div class="meta">${esc(e.email)}${e.country ? ' · '+esc(e.country) : ''}${e.timezone ? ' · '+esc(e.timezone) : ''}</div></div><div class="time">${fmtTime(e.created_at)}</div></div>
-      <div class="row-body">${esc((e.topic || '').slice(0, 240))}${(e.topic||'').length > 240 ? '…' : ''}</div></div>`).join('');
+    if (!enquiries.length) { list.innerHTML = '<div class="empty">No inquiries yet.</div>'; return; }
+    list.innerHTML = enquiries.map(e => {
+      const cat = e.category ? CAT_LABELS[e.category] || e.category : null;
+      const tier = e.consultation_type ? TIER_LABELS[e.consultation_type] || e.consultation_type : null;
+      const slot = e.requested_date ? `${fmtDate(e.requested_date)}${e.requested_slot ? ' · ' + e.requested_slot : ''}` : null;
+      return `<div class="row ${e.status === 'new' ? 'new' : ''}" data-eid="${e.id}">
+        <div class="row-head">
+          <div>
+            <div class="who">${esc(e.name)} <span class="badge b-${esc(e.status)}">${esc(e.status)}</span></div>
+            <div class="meta">${esc(e.email)}${e.phone ? ' · '+esc(e.phone) : ''}${e.country ? ' · '+esc(e.country) : ''}</div>
+          </div>
+          <div class="time">${fmtTime(e.created_at)}</div>
+        </div>
+        <div class="row-pills">
+          ${cat ? `<span class="pill-tag cat">${esc(cat)}</span>` : ''}
+          ${tier ? `<span class="pill-tag">${esc(tier)}</span>` : ''}
+          ${e.consultation_mode ? `<span class="pill-tag">${esc(e.consultation_mode)}</span>` : ''}
+          ${e.quoted_amount ? `<span class="pill-tag">${esc(e.quoted_currency || '')} ${esc(e.quoted_amount)}</span>` : ''}
+          ${slot ? `<span class="pill-tag">${esc(slot)}</span>` : ''}
+        </div>
+      </div>`;
+    }).join('');
     list.querySelectorAll('[data-eid]').forEach(r => r.addEventListener('click', () => openEnquiry(r.dataset.eid)));
   }
 
   function renderBookings() {
     const list = $('booking-list');
-    if (!bookings.length) { list.innerHTML = '<div class="empty">No bookings yet.</div>'; return; }
+    if (!bookings.length) { list.innerHTML = '<div class="empty">No paid bookings yet. (Will appear once payment is wired.)</div>'; return; }
     list.innerHTML = bookings.map(b => `<div class="row ${['awaiting_details','ready_to_schedule'].includes(b.status) ? 'new' : ''}" data-bid="${b.id}">
       <div class="row-head"><div><div class="who">${esc(b.buyer_name || b.buyer_email)} <span class="badge b-${esc(b.status)}">${esc(b.status.replace(/_/g,' '))}</span></div><div class="meta">${esc(b.tier_name || b.tier)} · ${esc(String(b.amount_paid || '?'))} ${esc(b.currency || '')}</div></div><div class="time">${fmtTime(b.created_at)}</div></div>
       <div class="row-body">${b.birth_date ? 'DOB '+esc(b.birth_date) : '<em style="color:var(--ink-3)">waiting on birth details</em>'}${b.birth_place ? ' · '+esc(b.birth_place) : ''}${b.scheduled_at ? ' · scheduled '+esc(new Date(b.scheduled_at).toLocaleString()) : ''}</div></div>`).join('');
@@ -279,9 +418,83 @@
   function openEnquiry(id) {
     const e = enquiries.find(x => x.id === id); if (!e) return;
     editingEnq = e;
-    $('enq-from').innerHTML = `${esc(e.name)} &lt;${esc(e.email)}&gt;${e.country ? ' · '+esc(e.country) : ''}`;
-    $('enq-topic').textContent = e.topic;
-    $('enq-reply').value = `Namaste ${e.name.split(' ')[0]},\n\nThank you for reaching out. `;
+    const cat = e.category ? CAT_LABELS[e.category] || e.category : null;
+    const tier = e.consultation_type ? TIER_LABELS[e.consultation_type] || e.consultation_type : null;
+    const birth = e.birth_name || e.birth_date;
+    const vastu = e.vastu_details;
+
+    let html = `<div class="section-head">Contact</div>`;
+    html += `<div class="field"><label>Name</label><div class="val">${esc(e.name)}</div></div>`;
+    html += `<div class="two-col">
+      <div class="field"><label>Email</label><div class="val">${esc(e.email)}</div></div>
+      <div class="field"><label>Phone</label><div class="val">${esc(e.phone || '—')}</div></div>
+    </div>`;
+    html += `<div class="two-col">
+      <div class="field"><label>Country</label><div class="val">${esc(e.country || '—')}${e.location ? ', ' + esc(e.location) : ''}</div></div>
+      <div class="field"><label>Timezone</label><div class="val">${esc(e.timezone || '—')}</div></div>
+    </div>`;
+
+    if (cat) {
+      html += `<div class="section-head">Consultation</div>`;
+      html += `<div class="two-col">
+        <div class="field"><label>Area</label><div class="val">${esc(cat)}</div></div>
+        <div class="field"><label>Depth</label><div class="val">${esc(tier || '—')}</div></div>
+      </div>`;
+      html += `<div class="two-col">
+        <div class="field"><label>Mode</label><div class="val">${esc(e.consultation_mode || '—')}</div></div>
+        <div class="field"><label>For</label><div class="val">${esc(e.consultation_for || '—')}</div></div>
+      </div>`;
+      html += `<div class="two-col">
+        <div class="field"><label>Requested slot</label><div class="val">${esc(fmtDate(e.requested_date))}${e.requested_slot ? ' · ' + esc(e.requested_slot) : ''}</div></div>
+        <div class="field"><label>Quoted</label><div class="val">${esc(e.quoted_currency || '')} ${esc(e.quoted_amount || '—')} ${e.price_inr ? '(₹' + esc(e.price_inr) + ')' : ''}</div></div>
+      </div>`;
+      html += `<div class="field"><label>Language</label><div class="val">${esc(e.language_pref || '—')}</div></div>`;
+    }
+
+    if (birth) {
+      html += `<div class="section-head">Birth details</div>`;
+      html += `<div class="field"><label>Name</label><div class="val">${esc(e.birth_name || '—')}</div></div>`;
+      html += `<div class="three-col">
+        <div class="field"><label>Date</label><div class="val">${esc(e.birth_date || '—')}</div></div>
+        <div class="field"><label>Time</label><div class="val">${esc(e.birth_time || '—')}</div></div>
+        <div class="field"><label>Place</label><div class="val">${esc(e.birth_place || '—')}</div></div>
+      </div>`;
+    }
+
+    if (vastu) {
+      html += `<div class="section-head">Vastu details</div>`;
+      html += `<div class="two-col">
+        <div class="field"><label>Property type</label><div class="val">${esc(vastu.propertyType || '—')}</div></div>
+        <div class="field"><label>Main entrance</label><div class="val">${esc(vastu.facing || '—')}</div></div>
+      </div>`;
+      html += `<div class="two-col">
+        <div class="field"><label>Size</label><div class="val">${esc(vastu.squareFeet || '—')}</div></div>
+        <div class="field"><label>Floors / layout</label><div class="val">${esc(vastu.floors || '—')}</div></div>
+      </div>`;
+      if (vastu.notes) html += `<div class="field"><label>Concern</label><div class="val" style="white-space:pre-wrap">${esc(vastu.notes)}</div></div>`;
+    }
+
+    if (e.topic) {
+      html += `<div class="section-head">Full topic</div>`;
+      html += `<div class="field"><div class="val" style="white-space:pre-wrap; font-size:13px; color:var(--ink-2); background:var(--surface-2); padding:12px; border-radius:8px;">${esc(e.topic)}</div></div>`;
+    }
+
+    $('enq-modal-body').innerHTML = html;
+    $('enq-title').textContent = `Inquiry — ${e.name}`;
+
+    // Chart link if birth details are present
+    const chartLink = $('enq-chart-link');
+    if (e.birth_date && e.birth_time && e.birth_place) {
+      const params = new URLSearchParams({
+        name: e.birth_name || e.name || '',
+        date: e.birth_date, time: e.birth_time, place: e.birth_place
+      });
+      chartLink.href = '/chart.html?' + params.toString();
+      chartLink.style.display = 'inline-flex';
+    } else {
+      chartLink.style.display = 'none';
+    }
+
     $('enq-modal').classList.add('show');
   }
 
@@ -299,22 +512,26 @@
     $('book-scheduled').value = b.scheduled_at ? b.scheduled_at.slice(0, 16) : '';
     $('book-status').value = b.status;
     $('book-notes').value = b.notes || '';
+    const chartLink = $('book-chart-link');
+    if (b.birth_date && b.birth_time && b.birth_place) {
+      const params = new URLSearchParams({ name: b.birth_name || '', date: b.birth_date, time: b.birth_time, place: b.birth_place });
+      chartLink.href = '/chart.html?' + params.toString();
+      chartLink.style.display = 'inline-flex';
+    } else {
+      chartLink.style.display = 'none';
+    }
     $('book-modal').classList.add('show');
   }
 
   function closeModal(id) { $(id).classList.remove('show'); }
   window.closeModal = closeModal;
 
-  $('enq-send').addEventListener('click', async () => {
+  $('enq-send').addEventListener('click', () => {
     if (!editingEnq) return;
-    const text = $('enq-reply').value.trim();
-    if (!text) return;
-    $('enq-send').disabled = true;
-    try {
-      await api('/send_reply', { method:'POST', body: JSON.stringify({ to: editingEnq.email, subject: $('enq-subject').value, text, reply_to: 'hello@brijvatika.com', enquiry_id: editingEnq.id }) });
-      closeModal('enq-modal'); await loadAll();
-    } catch (e) { alert('Send failed: ' + e.message); }
-    finally { $('enq-send').disabled = false; }
+    $('reply-to').textContent = `${editingEnq.name} <${editingEnq.email}>`;
+    $('reply-text').value = `Namaste ${editingEnq.name.split(' ')[0]},\n\nThank you for your inquiry regarding ${CAT_LABELS[editingEnq.category] || 'consultation'}. The Acharya has reviewed your request for ${editingEnq.requested_date ? fmtDate(editingEnq.requested_date) + ' at ' + editingEnq.requested_slot + ' (IST)' : 'the consultation'}.\n\nTo confirm this booking, please complete payment of ${editingEnq.quoted_currency || ''} ${editingEnq.quoted_amount || ''} using the following options:\n\n[Payment link / bank details here]\n\nOnce payment is received, I'll send the ${editingEnq.consultation_mode === 'phone' ? 'phone number' : 'video meeting link'} and a reminder 24 hours before our session.\n\nWarmly,\nAcharya Brijesh Pareek\nBrij Vatika`;
+    $('reply-modal').classList.add('show');
+    closeModal('enq-modal');
   });
 
   $('enq-decline').addEventListener('click', async () => {
@@ -322,6 +539,18 @@
     if (!confirm('Mark as declined?')) return;
     try { await api('/update_enquiry', { method:'POST', body: JSON.stringify({ id: editingEnq.id, status: 'declined' }) }); closeModal('enq-modal'); await loadAll(); }
     catch (e) { alert(e.message); }
+  });
+
+  $('reply-send').addEventListener('click', async () => {
+    if (!editingEnq) return;
+    const text = $('reply-text').value.trim();
+    if (!text) return;
+    $('reply-send').disabled = true;
+    try {
+      await api('/send_reply', { method:'POST', body: JSON.stringify({ to: editingEnq.email, subject: $('reply-subject').value, text, reply_to: 'hello@brijvatika.com', enquiry_id: editingEnq.id }) });
+      closeModal('reply-modal'); await loadAll();
+    } catch (e) { alert('Send failed: ' + e.message); }
+    finally { $('reply-send').disabled = false; }
   });
 
   $('book-save').addEventListener('click', async () => {
@@ -344,12 +573,125 @@
     finally { $('book-save').disabled = false; }
   });
 
+  // ===== Calendar =====
+  function renderCalendarView() {
+    const year = calDate.getFullYear(), month = calDate.getMonth();
+    const first = new Date(year, month, 1);
+    const last = new Date(year, month + 1, 0);
+    const startDay = first.getDay();
+    $('cal-month').textContent = calDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+    const today = new Date(); today.setHours(0,0,0,0);
+
+    const avByDate = {};
+    availability.forEach(a => {
+      if (!avByDate[a.date]) avByDate[a.date] = { blocked: [], booked: [] };
+      if (a.status === 'blocked') avByDate[a.date].blocked.push(a.slot_time);
+      else if (a.status === 'booked') avByDate[a.date].booked.push(a.slot_time);
+    });
+
+    const dows = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    let html = dows.map(d => `<div class="cal-dow">${d}</div>`).join('');
+    for (let i = 0; i < startDay; i++) html += `<div class="cal-day other-month"></div>`;
+    for (let d = 1; d <= last.getDate(); d++) {
+      const date = new Date(year, month, d);
+      const iso = date.toISOString().slice(0,10);
+      const past = date < today;
+      const isToday = date.getTime() === today.getTime();
+      const selected = selectedCalDate === iso;
+      const av = avByDate[iso] || { blocked: [], booked: [] };
+      let cls = 'cal-day';
+      if (past) cls += ' past';
+      if (isToday) cls += ' today';
+      if (selected) cls += ' selected';
+      if (av.blocked.length) cls += ' has-blocked';
+      if (av.booked.length) cls += ' has-booked';
+      const markers = [
+        ...av.blocked.slice(0, 4).map(() => `<span class="marker blocked"></span>`),
+        ...av.booked.slice(0, 4).map(() => `<span class="marker booked"></span>`),
+      ].join('');
+      html += `<div class="${cls}" data-date="${iso}">
+        <div class="num">${d}</div>
+        <div class="markers">${markers}</div>
+      </div>`;
+    }
+    $('cal-grid').innerHTML = html;
+    $('cal-grid').querySelectorAll('.cal-day:not(.other-month):not(.past)').forEach(el => {
+      el.addEventListener('click', () => {
+        selectedCalDate = el.dataset.date;
+        renderCalendarView();
+        renderSlotDetail();
+      });
+    });
+    if (selectedCalDate) renderSlotDetail();
+    else $('slot-detail-root').innerHTML = '';
+  }
+
+  function renderSlotDetail() {
+    if (!selectedCalDate) return;
+    const avByDate = {};
+    availability.forEach(a => { if (a.date === selectedCalDate) avByDate[a.slot_time] = a; });
+    let html = `<div class="slot-detail">
+      <h3>${fmtDate(selectedCalDate)}</h3>
+      <div style="font-size: 12px; color: var(--ink-3); margin-bottom: 12px;">Working hours: 10:00–18:00 IST. By default all shown slots are available. Block any slot the Acharya cannot take.</div>`;
+    SLOTS.forEach(s => {
+      const row = avByDate[s];
+      const status = row ? row.status : 'available';
+      html += `<div class="slot-row ${status}">
+        <div class="slot-time">${s}</div>
+        <div class="slot-status">${status === 'blocked' ? 'Blocked' : status === 'booked' ? 'Booked' : 'Available'}</div>
+        <div class="slot-actions">
+          ${status === 'available' ? `<button class="block" data-slot="${s}" data-action="block">Block</button>` : ''}
+          ${status === 'blocked' ? `<button class="unblock" data-slot="${s}" data-action="unblock">Unblock</button>` : ''}
+          ${status === 'booked' ? `<span style="font-size:11px;color:var(--ink-3)">Buyer-reserved</span>` : ''}
+        </div>
+      </div>`;
+    });
+    html += `<div style="display:flex; gap:8px; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--surface-2);">
+      <button id="block-whole-day" style="background: transparent; border: 1px solid var(--line); border-radius: 20px; padding: 6px 14px; font-size: 12px; cursor: pointer; color: var(--warn); font-family: inherit;">Block entire day</button>
+      <button id="unblock-whole-day" style="background: transparent; border: 1px solid var(--line); border-radius: 20px; padding: 6px 14px; font-size: 12px; cursor: pointer; color: var(--sage); font-family: inherit;">Unblock entire day</button>
+    </div></div>`;
+    $('slot-detail-root').innerHTML = html;
+
+    $('slot-detail-root').querySelectorAll('[data-action]').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const slot = btn.dataset.slot;
+        const action = btn.dataset.action;
+        btn.disabled = true;
+        try {
+          await api('/set_availability', { method: 'POST', body: JSON.stringify({
+            date: selectedCalDate,
+            slot_time: slot,
+            status: action === 'block' ? 'blocked' : 'available'
+          }) });
+          await loadAll();
+        } catch (e) { alert(e.message); btn.disabled = false; }
+      });
+    });
+    $('block-whole-day')?.addEventListener('click', async () => {
+      if (!confirm(`Block all slots on ${fmtDate(selectedCalDate)}?`)) return;
+      try {
+        await api('/block_day', { method: 'POST', body: JSON.stringify({ date: selectedCalDate, slots: SLOTS }) });
+        await loadAll();
+      } catch (e) { alert(e.message); }
+    });
+    $('unblock-whole-day')?.addEventListener('click', async () => {
+      if (!confirm(`Unblock all slots on ${fmtDate(selectedCalDate)}?`)) return;
+      try {
+        await api('/unblock_day', { method: 'POST', body: JSON.stringify({ date: selectedCalDate }) });
+        await loadAll();
+      } catch (e) { alert(e.message); }
+    });
+  }
+
+  $('cal-prev').addEventListener('click', () => { calDate.setMonth(calDate.getMonth() - 1); renderCalendarView(); });
+  $('cal-next').addEventListener('click', () => { calDate.setMonth(calDate.getMonth() + 1); renderCalendarView(); });
+
   // Init
   (async () => {
     const saved = localStorage.getItem(TOKEN_KEY);
     if (saved) {
       token = saved;
-      try { await api('/session'); $('login-view').style.display = 'none'; $('app-view').style.display = 'block'; await loadAll(); setInterval(loadAll, 20000); return; } catch { token = null; localStorage.removeItem(TOKEN_KEY); }
+      try { await api('/session'); $('login-view').style.display = 'none'; $('app-view').style.display = 'block'; await loadAll(); setInterval(loadAll, 25000); return; } catch { token = null; localStorage.removeItem(TOKEN_KEY); }
     }
     await checkMode();
   })();
